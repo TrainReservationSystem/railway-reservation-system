@@ -1,23 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header1";
 import Footer from "./Footer";
-import { BrowserRouter } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Landing = () => {
+  const [startDate, setStartDate] = useState(new Date());
+
   return (
     <>
-        <Header />
-
+      <Header />
       <hr />
-      <div className="container">
-        <center>
-          <h4>
-            To : <input type="text"></input>
-            <br />
-            <br />
-            From : <input type="text"></input>
-          </h4>
-        </center>
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="container text-center">
+          <div className="row">
+            <div className="col-md-6 offset-md-3">
+              <div className="d-flex align-items-center mb-3">
+                <label className="me-2">From:</label>
+                <input type="text" className="form-control" />
+              </div>
+              <div className="d-flex align-items-center mb-3">
+                <label className="me-2">To:</label>
+                <input type="text" className="form-control" />
+              </div>
+              <div className="d-flex align-items-center mb-3">
+                <label className="me-2">Date:</label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="form-control"
+                />
+              </div>
+              <br />
+              <button className="btn btn-outline-primary p-2">Search</button>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </>

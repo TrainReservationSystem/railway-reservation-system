@@ -4,23 +4,37 @@ import trainLogo from "./assets/trainLogo.jpg";
 import { Link, Switch, Route } from "react-router-dom";
 import Landing from "./Landing";
 import AboutUs from "./AboutUs";
+import "./style.css";
 
 const Header = () => {
   return (
     <>
       <div className="container">
-        {/* <img src={trainLogo} alt="logo" className="img-fluid h-25 w-25"></img>u */}
-        <Link to="/login"> Login</Link>
+        <img src={trainLogo} alt="logo" className="me-5 img-fluid logo-img" />
+        <Link to="/login" className="ms-5 me-5">
+          {" "}
+          Login
+        </Link>
         {" | "}
-        <Link to="/register"> register</Link>
+        <Link to="/register" className="ms-5 me-5">
+          {" "}
+          register
+        </Link>
         {" | "}
-        {/* <Link to="/landing"> Landing</Link>
-        {" | "} */}
-        <Link to="/about"> About Us</Link>
+        <Link to="/about" className="ms-5 me-5">
+          {" "}
+          About Us
+        </Link>
         {" | "}
-        <Link to="/contact"> Contact Us</Link>
+        <Link to="/contact" className="ms-5 me-5">
+          {" "}
+          Contact Us
+        </Link>
         {" | "}
-        <Link to="/login"> Dashboard</Link>
+        <Link to="/login" className="ms-5 me-5">
+          {" "}
+          Dashboard
+        </Link>
 
         {/* <Switch>
           <Route path="/" component={Landing} exact />
