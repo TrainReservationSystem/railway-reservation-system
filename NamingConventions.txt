@@ -1,0 +1,2 @@
+## Use Pascal font in case of component names.
+## Normal tags are in lowercase.
