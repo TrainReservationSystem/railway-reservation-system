@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Header from "./Header1";
-import Footer from "./Footer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "../common/Header1";
+import Footer from "../common/Footer";
 
 const Landing = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
     <>
-      <Header />
+      <Header/>
       <hr />
       <div className="d-flex justify-content-center align-items-center">
         <div className="container text-center">

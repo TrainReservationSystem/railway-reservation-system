@@ -1,10 +1,10 @@
-import App from "./App";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import trainLogo from "./assets/trainLogo.jpg";
+import App from "../../App";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import trainLogo from "../../assets/trainLogo.jpg";
 import { Link, Switch, Route } from "react-router-dom";
-import Landing from "./Landing";
-import AboutUs from "./AboutUs";
-import "./style.css";
+import Landing from "../landing/Landing";
+import AboutUs from "../aboutUs/AboutUs";
+import "../../style.css";
 
 const Header = () => {
   return (
@@ -18,7 +18,7 @@ const Header = () => {
         {" | "}
         <Link to="/register" className="ms-5 me-5">
           {" "}
-          register
+          Register
         </Link>
         {" | "}
         <Link to="/about" className="ms-5 me-5">
