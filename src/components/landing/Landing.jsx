@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Header from "../common/Header1";
+// import Header from "../common/Header1";
+import Header from "../common/Header2";
+
 import Footer from "../common/Footer";
 
 const Landing = () => {
@@ -9,7 +11,7 @@ const Landing = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
       <hr />
       <div className="d-flex justify-content-center align-items-center">
         <div className="container text-center">
