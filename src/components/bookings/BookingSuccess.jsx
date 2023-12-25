@@ -6,7 +6,7 @@ const BookingSuccess = () => {
   return (
     <>
       <div>
-        <Header></Header>
+        <Header/>
 
         <div>
           <div class="container mt-5">
@@ -56,7 +56,7 @@ const BookingSuccess = () => {
             </div>
           </div>
         </div>
-        <Footer></Footer>
+        <Footer/>
       </div>
     </>
   );
