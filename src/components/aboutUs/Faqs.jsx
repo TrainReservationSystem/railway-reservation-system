@@ -3,16 +3,16 @@ import Header from "../common/Header2";
 import Footer from "../common/Footer";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-const AboutUs = () => {
+const Faqs = () => {
   return (
     <>
       <Header />
       <div className="container text-center">
-        <h1>About Us !</h1>
+        <h1>FAQs !</h1>
       </div>
       <Footer />
     </>
   );
 };
 
-export default AboutUs;
+export default Faqs;
