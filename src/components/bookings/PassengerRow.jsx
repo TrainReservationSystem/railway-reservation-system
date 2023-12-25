@@ -4,33 +4,33 @@ const PassengerRow = () => {
   return (
     <>
       <div style={{ maxWidth: '100%' }}>
-        <div class="row g-2 border rounded p-3 mb-3 ">
-          <div class="col-md">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="name-id" />
-              <label for="name-id">Name</label>
+        <div className="row g-2 border rounded p-3 mb-3 ">
+          <div className="col-md">
+            <div className="form-floating">
+              <input type="text" className="form-control" id="name-id" />
+              <label htmlFor="name-id">Name</label>
             </div>
           </div>
-          <div class="col-3">
-            <div class="form-floating">
-              <select class="form-select" id="age-id" >
+          <div className="col-3">
+            <div className="form-floating">
+              <select className="form-select" id="age-id" >
                 <option value="1">Male</option>
                 <option value="2">Female</option>
                 <option value="3">Other</option>
               </select>
-              <label for="age-id">Gender</label>
+              <label htmlFor="age-id">Gender</label>
             </div>
           </div>
 
-          <div class="col-2">
-            <div class="form-floating">
-              <input type="number" max={120} class="form-control" id="age-id" />
-              <label for="age-id">Age</label>
+          <div className="col-2">
+            <div className="form-floating">
+              <input type="number" max={120} className="form-control" id="age-id" />
+              <label htmlFor="age-id">Age</label>
             </div>
           </div>
-          <div class="col-3">
-            <div class="form-floating">
-              <select id="country-id" class="form-select">
+          <div className="col-3">
+            <div className="form-floating">
+              <select id="country-id" className="form-select">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
                 <option value="Albania">Albania</option>
@@ -276,7 +276,7 @@ const PassengerRow = () => {
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
               </select>
-              <label for="country-id">Country</label>
+              <label htmlFor="country-id">Country</label>
             </div>
           </div>
         </div>

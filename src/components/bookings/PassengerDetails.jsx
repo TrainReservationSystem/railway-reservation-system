@@ -26,7 +26,7 @@ const PassengerDetails = () => {
                 {passengers.map((passenger) => (
                   <PassengerRow key={passenger.id} id={passenger.id} />
                 ))}
-                <button onClick={addPassenger} class="btn btn-success m-3">Add Another Passenger</button>
+                <button onClick={addPassenger} className="btn btn-success m-3">Add Another Passenger</button>
               </div>
             </div>
 
@@ -37,7 +37,7 @@ const PassengerDetails = () => {
           </div>
         <ContactDetails/>
 
-        <button class="btn btn-primary m-3 fs-4">Make Payment</button>
+        <button className="btn btn-primary m-3 fs-4">Make Payment</button>
         </div>
         <Footer />
       </div>

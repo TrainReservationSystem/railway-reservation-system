@@ -8,9 +8,9 @@ const ContactDetails = () => {
         <br />
         <div>(Ticket details will be sent to email- <span className='fw-bold'>su*******@gmail.com</span> and registered mobile number <span className='fw-bold'>82******18</span>)</div>
 
-        <div class="input-group flex-nowrap pt-2">
-          <span class="input-group-text" id="addon-wrapping">91</span>
-          <input type="number" class="form-control" />
+        <div className="input-group flex-nowrap pt-2">
+          <span className="input-group-text" id="addon-wrapping">91</span>
+          <input type="number" className="form-control" />
         </div>
       </div>
     </>
