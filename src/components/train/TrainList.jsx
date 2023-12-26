@@ -1,11 +1,10 @@
 // TrainList.js
 import React, { useState } from "react";
-import Footer from "../common/Footer";
-import Header from "../common/Header1";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SearchCard from "./SearchCard";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 
 const TrainList = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -46,7 +45,6 @@ const TrainList = () => {
   return (
     <>
       <div>
-        <Header />
         <div
           className="container p-3"
           style={{ backgroundColor: "#D2E3C8", minHeight: "100vh" }}
@@ -84,7 +82,8 @@ const TrainList = () => {
                 </option>
               ))}
             </select>
-            <button className="btn btn-outline-primary">Search</button>
+
+            <Link to='/passengerdetails' className=' btn btn-outline-primary text-decoration-none'>Search</Link>
           </div>
 
           {/* Search Results */}
@@ -94,7 +93,6 @@ const TrainList = () => {
             ))}
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );
