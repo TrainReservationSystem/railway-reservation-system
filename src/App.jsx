@@ -11,12 +11,12 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import AboutUs from "./components/aboutUs/AboutUs";
 import ContactUs from "./components/aboutUs/ContactUs";
 import Faqs from "./components/aboutUs/Faqs";
-import UserLogin from "./components/user/Login";
+import UserLogin from "./components/authentication/UserLogin";
 import SignUp from "./components/user/SignUp";
-import AdminLogin from "./components/admin/Login";
+import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
-import TrainList from "./components/train/TrainList"
-import PassengerDetails from "./components/bookings/PassengerDetails"
+import TrainList from "./components/train/TrainList";
+import PassengerDetails from "./components/bookings/PassengerDetails";
 
 const App = () => {
   const appStyles = {
@@ -32,7 +32,7 @@ const App = () => {
         <Route path="about" element={<AboutUs />} />
         <Route path="contact" element={<ContactUs />} />
         <Route path="faqs" element={<Faqs />} />
-        <Route path="login" element={<UserLogin />} />
+        <Route path="userlogin" element={<UserLogin />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="adminlogin" element={<AdminLogin />} />
         <Route path="trainlist" element={<TrainList />} />

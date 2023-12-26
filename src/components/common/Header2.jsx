@@ -32,7 +32,7 @@ const Header2 = () => {
           </ul>
 
           <div className='text-end bg-dark p-2 rounded'>
-            <Btns link='/login' tag='Login' color='success' />
+            <Btns link='/userlogin' tag='Login' color='success' />
             <Btns link='/signup' tag='Register' color='success' />
             <Btns link='/adminlogin' tag='Admin' color='danger' />
           </div>
