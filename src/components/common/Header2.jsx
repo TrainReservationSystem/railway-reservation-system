@@ -1,8 +1,14 @@
 import React from "react";
 import trainLogo from "../../assets/trainLogo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Header2 = ({isLoggedIn}) => {
+const Header2 = ({ isLoggedIn, setLoggedIn }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <header className="p-3 text-bg-light bg-dark">
@@ -35,9 +41,14 @@ const Header2 = ({isLoggedIn}) => {
           <div className="text-end bg-dark p-2 rounded">
             {isLoggedIn ? (
               <>
-                <Btns link="/userlogin" tag="Profile" color="primary" />
-                <Btns link="/signup" tag="MyBookings" color="warning" />
-                <Btns link="/adminlogin" tag="Logout" color="danger" />
+                <Btns link="/userprofile" tag="Profile" color="primary" />
+                <Btns link="/mybookings" tag="My Bookings" color="warning" />
+                <button
+                  className="btn btn-danger mx-1 px-2"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </>
             ) : (
               <>
