@@ -1,11 +1,12 @@
 import React from "react";
+// import { Link } from "react-bootstrap-icons";
 
 const UserSideBar = () => {
   return (
     <>
       <div
         class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-        style={{ width: "280px;", height: "900px" }}
+        style={{ width: "300px", height: "800px" }}
       >
         <a
           href="/"

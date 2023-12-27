@@ -2,8 +2,7 @@ import React from "react";
 import trainLogo from "../../assets/trainLogo.jpg";
 import { Link } from "react-router-dom";
 
-const Header2 = ({isLoggedIn}) => {
-
+const UserHeader = () => {
   return (
     <header className="p-3 text-bg-light bg-dark">
       <div className="container">
@@ -33,19 +32,7 @@ const Header2 = ({isLoggedIn}) => {
           </ul>
 
           <div className="text-end bg-dark p-2 rounded">
-            {isLoggedIn ? (
-              <>
-                <Btns link="/userlogin" tag="Profile" color="primary" />
-                <Btns link="/signup" tag="MyBookings" color="warning" />
-                <Btns link="/adminlogin" tag="Logout" color="danger" />
-              </>
-            ) : (
-              <>
-                <Btns link="/userlogin" tag="Login" color="primary" />
-                <Btns link="/signup" tag="Register" color="success" />
-                <Btns link="/adminlogin" tag="Admin" color="danger" />
-              </>
-            )}
+            <Btns link="/adminlogin" tag="Logout" color="danger" />
           </div>
         </div>
       </div>
@@ -75,4 +62,4 @@ const LiTag = ({ link, tag }) => {
   );
 };
 
-export default Header2;
+export default UserHeader;
