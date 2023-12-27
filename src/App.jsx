@@ -21,6 +21,9 @@ import TrainStatus from "./components/train/TrainStatus";
 import PassengerDetails from "./components/bookings/PassengerDetails";
 import AdminHome from "./components/admin/AdminHome";
 import BookingSuccess from "./components/bookings/BookingSuccess";
+import { AuthProvider } from "./contexts/AuthContext";
+import UserProfile from "./components/user/UserProfile";
+import EditProfile from "./components/user/EditProfile";
 
 const App = () => {
   const appStyles = {
@@ -40,21 +43,27 @@ const App = () => {
         <Route path="signup" element={<SignUp />} />
         <Route path="adminlogin" element={<AdminLogin />} />
         <Route path="trainlist" element={<TrainList />} />
-        <Route path="adminhome" element={<AdminHome/>} />
-        <Route path="addtrain" element={<AddTrain/>} />
-        <Route path="trainstatus" element={<TrainStatus/>} />
+        <Route path="adminhome" element={<AdminHome />} />
+        <Route path="addtrain" element={<AddTrain />} />
+        <Route path="trainstatus" element={<TrainStatus />} />
         <Route path="passengerdetails" element={<PassengerDetails />} />
         <Route path="booksuccess" element={<BookingSuccess />} />
-        <Route path="mybookings" element={<MyBookings/>} />
+        <Route path="mybookings" element={<MyBookings />} />
+        <Route path="userprof" element={<UserProfile />} />
+        <Route path="edituserprofile" element={<EditProfile />} />
+
+        {/* why am I not able to use 'userprofile' instead of 'userprof' in the above line. If I use 'userprofile' then landing page is not shown*/}
         <Route path="*" element={<Landing />} />
       </Route>
     )
   );
 
   return (
-    <div style={appStyles}>
-      <RouterProvider router={router} />
-    </div>
+    <AuthProvider>
+      <div style={appStyles}>
+        <RouterProvider router={router} />
+      </div>
+    </AuthProvider>
   );
 };
 
