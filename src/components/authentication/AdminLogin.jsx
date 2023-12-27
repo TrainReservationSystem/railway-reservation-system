@@ -10,6 +10,7 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import adminImage from "../../assets/adminlogin.png";
+import { Link } from "react-router-dom";
 
 function AdminLogin() {
   return (
@@ -51,8 +52,10 @@ function AdminLogin() {
                 type="password"
                 size="lg"
               />
+              <Link to="/adminhome">
+                <button className="btn btn-dark btn-lg mb-2">Login</button>
+              </Link>
 
-              <button className="btn btn-dark btn-lg mb-2">Login</button>
               <a className="small text-muted" href="#!">
                 Forgot password?
               </a>

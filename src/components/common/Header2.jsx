@@ -14,7 +14,13 @@ const Header2 = ({ isLoggedIn, setLoggedIn }) => {
     <header className="p-3 text-bg-light bg-dark">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <img src={trainLogo} alt="logo" className="me-5 img-fluid logo-img" />
+          <Link to="/">
+            <img
+              src={trainLogo}
+              alt="logo"
+              className="me-5 img-fluid logo-img"
+            />
+          </Link>
 
           <a
             href="/"

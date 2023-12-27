@@ -16,7 +16,10 @@ import SignUp from "./components/user/SignUp";
 import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
 import TrainList from "./components/train/TrainList";
+import AddTrain from "./components/train/AddTrain";
+import TrainStatus from "./components/train/TrainStatus";
 import PassengerDetails from "./components/bookings/PassengerDetails";
+import AdminHome from "./components/admin/AdminHome";
 
 const App = () => {
   const appStyles = {
@@ -36,6 +39,9 @@ const App = () => {
         <Route path="signup" element={<SignUp />} />
         <Route path="adminlogin" element={<AdminLogin />} />
         <Route path="trainlist" element={<TrainList />} />
+        <Route path="adminhome" element={<AdminHome/>} />
+        <Route path="addtrain" element={<AddTrain/>} />
+        <Route path="trainstatus" element={<TrainStatus/>} />
         <Route path="passengerdetails" element={<PassengerDetails />} />
         <Route path="*" element={<Landing />} />
       </Route>

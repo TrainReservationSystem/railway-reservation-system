@@ -3,10 +3,10 @@ import React from "react";
 const AddTrain = () => {
   return (
     <div className="container mt-5 p-4 border border-dark border-2 bg-secondary-subtle">
-      <h1 className="text-center mb-4">Add Train</h1>
+      <h1 className="text-center mb-4 ">Add Train</h1>
       <hr />
       <div className="row justify-content-center align-items-center">
-        <div className="col-md-4 order-md-2 border border-dark border-2 ">
+        <div className="col-md-5 order-md-2 border border-dark border-2 ">
           <div className="mb-3">
             <h3 className="text-center">No. of Seats</h3>
             <hr />
@@ -65,7 +65,7 @@ const AddTrain = () => {
           </div>
         </div>
 
-        <div className="col-md-8 order-md-1 ">
+        <div className="col-md-6 order-md-1 me-2 ">
           <form>
             <div className="mb-3">
               <label htmlFor="trainNo" className="form-label">
