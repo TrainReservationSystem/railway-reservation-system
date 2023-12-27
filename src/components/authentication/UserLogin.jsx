@@ -7,11 +7,10 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function UserLogin() {
   const navigate = useNavigate();
-  // const [isLoggedIn,setLoggedIn] = useState(true);
-  const { setIsUserLoggedIn } = useAuth();
+  const { setNewRole } = useAuth();
 
   const handleSignIn = () => {
-    setIsUserLoggedIn(true);
+    setNewRole("user");
     navigate("/trainlist");
   };
 

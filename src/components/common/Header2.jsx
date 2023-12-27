@@ -1,88 +1,77 @@
-import React from "react";
-import trainLogo from "../../assets/trainLogo.jpg";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import React from 'react';
+import trainLogo from '../../assets/trainLogo.jpg';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Header2 = () => {
   const navigate = useNavigate();
 
-  const {
-    isUserLoggedIn,
-    setIsUserLoggedIn,
-    isAdminLoggedIn,
-    setIsAdminLoggedIn,
-  } = useAuth();
+  const { role, setNewRole } = useAuth();
 
-  const handleUserLogout = () => {
-    setIsUserLoggedIn(false);
-    navigate("/");
-  };
-
-  const handleAdminLogout = () => {
-    setIsAdminLoggedIn(false);
-    navigate("/");
+  const handleLogout = () => {
+    setNewRole('');
+    navigate('/');
   };
 
   return (
-    <header className="p-3 text-bg-light bg-dark">
-      <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <Link to="/">
+    <header className='p-3 text-bg-light bg-dark'>
+      <div className='container'>
+        <div className='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
+          <Link to='/'>
             <img
               src={trainLogo}
-              alt="logo"
-              className="me-5 img-fluid logo-img"
+              alt='logo'
+              className='me-5 img-fluid logo-img'
             />
           </Link>
 
           <a
-            href="/"
-            className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+            href='/'
+            className='d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none'
           >
             <svg
-              className="bi me-2"
-              width="40"
-              height="32"
-              role="img"
-              aria-label="Bootstrap"
+              className='bi me-2'
+              width='40'
+              height='32'
+              role='img'
+              aria-label='Bootstrap'
             >
-              <use xlinkHref="#bootstrap"></use>
+              <use xlinkHref='#bootstrap'></use>
             </svg>
           </a>
 
-          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <LiTag link="/" tag="Home" />
-            <LiTag link="/contact" tag="Contact Us" />
-            <LiTag link="/about" tag="About Us" />
-            <LiTag link="/faqs" tag="FAQs" />
+          <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
+            <LiTag link='/' tag='Home' />
+            <LiTag link='/contact' tag='Contact Us' />
+            <LiTag link='/about' tag='About Us' />
+            <LiTag link='/faqs' tag='FAQs' />
           </ul>
 
-          <div className="text-end bg-dark p-2 rounded">
-            {isUserLoggedIn ? (
+          <div className='text-end bg-dark p-2 rounded'>
+            {role !== '' ? (
               <>
-                <Btns link="/userprof" tag="Profile" color="primary" />
-                <Btns link="/mybookings" tag="My Bookings" color="warning" />
+                {role === 'user' && (
+                  <>
+                    <Btns link='/userprof' tag='Profile' color='primary' />
+                    <Btns
+                      link='/mybookings'
+                      tag='My Bookings'
+                      color='warning'
+                    />
+                  </>
+                )}
                 <button
-                  className="btn btn-danger mx-1 px-2"
-                  onClick={handleUserLogout}
+                  className='btn btn-danger mx-1 px-2'
+                  onClick={handleLogout}
                 >
                   Logout
                 </button>
               </>
-            ) : isAdminLoggedIn ? (
+            ): (
               <>
-                <button
-                  className="btn btn-danger mx-1 px-2"
-                  onClick={handleAdminLogout}
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Btns link="/userlogin" tag="Login" color="primary" />
-                <Btns link="/signup" tag="Register" color="success" />
-                <Btns link="/adminlogin" tag="Admin" color="danger" />
+                <Btns link='/userlogin' tag='Login' color='primary' />
+                <Btns link='/signup' tag='Register' color='success' />
+                <Btns link='/adminlogin' tag='Admin' color='danger' />
               </>
             )}
           </div>
@@ -105,8 +94,8 @@ const LiTag = ({ link, tag }) => {
     <li>
       <Link
         to={link}
-        className="nav-link px-2 text-light"
-        style={{ fontSize: "20px" }}
+        className='nav-link px-2 text-light'
+        style={{ fontSize: '20px' }}
       >
         {tag}
       </Link>
