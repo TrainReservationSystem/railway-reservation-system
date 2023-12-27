@@ -6,9 +6,9 @@ import {
   MDBCol,
   MDBRow,
   MDBInput,
-  MDBCheckbox,
+  // MDBCheckbox,
 } from "mdb-react-ui-kit";
-import { Link } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 function UserLogin() {
   return (
@@ -42,7 +42,7 @@ function UserLogin() {
             size="lg"
           />
 
-          <div className="d-flex justify-content-between mx-4 mb-4">
+          <div className="d-flex justify-content-between  mb-4">
             {/* <MDBCheckbox
               name="flexCheck"
               value=""
@@ -55,7 +55,9 @@ function UserLogin() {
             <a href="!#">Forgot password?</a>
           </div>
 
-          <button className=" btn btn-lg btn-primary w-100">Sign in</button>
+          <Link to="/trainlist">
+            <button className=" btn btn-lg btn-primary w-100">Sign in</button>
+          </Link>
         </MDBCol>
       </MDBRow>
     </MDBContainer>
