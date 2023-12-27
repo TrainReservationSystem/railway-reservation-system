@@ -13,7 +13,7 @@ import adminImage from "../../assets/adminlogin.png";
 
 function AdminLogin() {
   return (
-    <MDBContainer className="mt-2 d-flex justify-content-center align-items-center">
+    <MDBContainer className="mt-2 ">
       <MDBCard className="shadow p-2">
         <MDBRow className="g-0">
           <MDBCol md="6">
@@ -27,7 +27,7 @@ function AdminLogin() {
           <MDBCol md="6">
             <MDBCardBody className="d-flex flex-column px-0">
               <div className="d-flex flex-row mt-1">
-                <span className="display-3">Hello👋, Admin</span>
+                <span className="display-2">Hello👋,Admin</span>
               </div>
 
               <h5
@@ -40,14 +40,14 @@ function AdminLogin() {
               <MDBInput
                 wrapperClass="mb-2"
                 label="Email address"
-                id="formControlL"
+                id="formControlLg"
                 type="email"
                 size="lg"
               />
               <MDBInput
                 wrapperClass="mb-2"
                 label="Password"
-                id="formControl"
+                id="formControlL"
                 type="password"
                 size="lg"
               />
