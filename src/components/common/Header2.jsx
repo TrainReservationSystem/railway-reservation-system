@@ -1,12 +1,25 @@
 import React from "react";
 import trainLogo from "../../assets/trainLogo.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
-const Header2 = ({ isLoggedIn, setLoggedIn }) => {
+const Header2 = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setLoggedIn(false);
+  const {
+    isUserLoggedIn,
+    setIsUserLoggedIn,
+    isAdminLoggedIn,
+    setIsAdminLoggedIn,
+  } = useAuth();
+
+  const handleUserLogout = () => {
+    setIsUserLoggedIn(false);
+    navigate("/");
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdminLoggedIn(false);
     navigate("/");
   };
 
@@ -45,13 +58,22 @@ const Header2 = ({ isLoggedIn, setLoggedIn }) => {
           </ul>
 
           <div className="text-end bg-dark p-2 rounded">
-            {isLoggedIn ? (
+            {isUserLoggedIn ? (
               <>
-                <Btns link="/userprofile" tag="Profile" color="primary" />
+                <Btns link="/userprof" tag="Profile" color="primary" />
                 <Btns link="/mybookings" tag="My Bookings" color="warning" />
                 <button
                   className="btn btn-danger mx-1 px-2"
-                  onClick={handleLogout}
+                  onClick={handleUserLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : isAdminLoggedIn ? (
+              <>
+                <button
+                  className="btn btn-danger mx-1 px-2"
+                  onClick={handleAdminLogout}
                 >
                   Logout
                 </button>

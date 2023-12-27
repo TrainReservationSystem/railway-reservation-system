@@ -10,9 +10,21 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import adminImage from "../../assets/adminlogin.png";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function AdminLogin() {
+  const navigate = useNavigate();
+
+  const { setIsAdminLoggedIn } = useAuth();
+
+  const handleSignIn = () => {
+    setIsAdminLoggedIn(true);
+    navigate("/trainlist");
+    debugger;
+  };
+
   return (
     <MDBContainer className="mt-2 ">
       <MDBCard className="shadow p-2">
@@ -53,7 +65,12 @@ function AdminLogin() {
                 size="lg"
               />
               <Link to="/adminhome">
-                <button className="btn btn-dark btn-lg mb-2">Login</button>
+                <button
+                  className="btn btn-dark btn-lg mb-2"
+                  onClick={handleSignIn}
+                >
+                  Login
+                </button>
               </Link>
 
               <a className="small text-muted" href="#!">
