@@ -15,12 +15,18 @@ import SignUp from "./components/user/SignUp";
 import MyBookings from "./components/user/MyBookings";
 import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
-import TrainList from "./components/train/TrainList";
-import AddTrain from "./components/train/AddTrain";
-import TrainStatus from "./components/train/TrainStatus";
-import PassengerDetails from "./components/bookings/PassengerDetails";
+import {
+  AddTrain,
+  TrainList,
+  TrainStatus,
+  TrainManagement,
+} from "./components/train/trainIndex.js";
 import AdminHome from "./components/admin/AdminHome";
-import BookingSuccess from "./components/bookings/BookingSuccess";
+import {
+  BookingSuccess,
+  PaymentPage,
+  PassengerDetails,
+} from "./components/bookings/bookingsIndex.js";
 import { AuthProvider } from "./contexts/AuthContext";
 import UserProfile from "./components/user/UserProfile";
 import EditProfile from "./components/user/EditProfile";
@@ -29,7 +35,7 @@ const App = () => {
   const appStyles = {
     // backgroundColor: "#C5FFF8",
     minHeight: "100vh",
-    width: "100vw",
+    width: "100%",
   };
 
   const router = createBrowserRouter(

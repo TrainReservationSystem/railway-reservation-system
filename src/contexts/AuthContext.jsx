@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 
 const AuthContext = React.createContext();
 
@@ -7,15 +7,23 @@ export function useAuth() {
 }
 
 export function AuthProvider(props) {
-  //   const [authUser, setAuthUser] = useState(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [role, setRole] = useState(getRole());
+
+  function getRole() {
+    if (localStorage.getItem('role')) {
+      return localStorage.getItem('role');
+    }
+    return '';
+  }
+
+  const setNewRole = (newRole) =>{
+    setRole(newRole);
+    localStorage.setItem("role",newRole);
+  }
 
   const value = {
-    isAdminLoggedIn,
-    setIsAdminLoggedIn,
-    isUserLoggedIn,
-    setIsUserLoggedIn,
+    role,
+    setNewRole,
   };
 
   return (

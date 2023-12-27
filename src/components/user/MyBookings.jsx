@@ -1,6 +1,6 @@
 import React from "react";
 
-import BookingCard from "./BookingCard";
+import BookingCard from "../bookings/BookingCard";
 
 export default function App() {
   const bookings = [

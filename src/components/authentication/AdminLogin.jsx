@@ -16,15 +16,12 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function AdminLogin() {
   const navigate = useNavigate();
-
-  const { setIsAdminLoggedIn } = useAuth();
+  const { setNewRole } = useAuth();
 
   const handleSignIn = () => {
-    setIsAdminLoggedIn(true);
+    setNewRole("admin");
     navigate("/trainlist");
-    debugger;
   };
-
   return (
     <MDBContainer className="mt-2 ">
       <MDBCard className="shadow p-2">

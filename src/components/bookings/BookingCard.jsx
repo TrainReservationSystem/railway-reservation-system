@@ -5,28 +5,23 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardHeader,
-  MDBBtn,
 } from "mdb-react-ui-kit";
 
 const BookingCard = ({ booking }) => {
-  var bookingType = booking.status;
-  var status = "";
-  if (bookingType === "booked") {
-    status = "success";
-  } else if (bookingType === "cancelled") {
-    status = "danger";
-  } else if (bookingType === "waiting") {
-    status = "warning";
-  } else {
-    status = "primary";
-  }
-
+  var status = {
+    booked: "success",
+    cancelled: "danger",
+    waiting: "warning",
+  };
   return (
     <>
-      <MDBCard background={status} className="text-white mb-3 mt-5 h-25">
+      <MDBCard
+        background={status[booking.status]}
+        className="text-white mb-3 mt-5 h-25"
+      >
         <MDBCardHeader>Booking ID : {booking.bid}</MDBCardHeader>
         <MDBCardBody>
-          <MDBCardTitle>status : {bookingType}</MDBCardTitle>
+          <MDBCardTitle>status : {booking.status}</MDBCardTitle>
           <MDBCardText>
             PNR : {booking.pnr}
             <br />
@@ -36,7 +31,7 @@ const BookingCard = ({ booking }) => {
             <br />
             Date : {booking.date}
           </MDBCardText>
-          <MDBBtn color="dark">Cancel Booking</MDBBtn>
+          <button className="btn btn-dark">Cancel Booking</button>
         </MDBCardBody>
         <br />
       </MDBCard>
