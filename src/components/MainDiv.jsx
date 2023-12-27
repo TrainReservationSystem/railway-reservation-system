@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "./common/Footer";
 
 const MainDiv = () => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   return (
     <>

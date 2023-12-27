@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PassengerRow from "./PassengerRow";
 import FareSummary from "./FareSummary";
 import ContactDetails from "./ContactDetails";
+import { Link } from "react-router-dom";
 
 const PassengerDetails = () => {
   const [passengers, setPassengers] = useState([{ id: 1 }]);
@@ -34,7 +35,9 @@ const PassengerDetails = () => {
         </div>
         <ContactDetails />
 
-        <button className="btn btn-primary m-3 fs-4">Make Payment</button>
+        <Link to="/booksuccess" >
+          <button className="btn btn-primary m-3 fs-4">Make Payment</button>
+        </Link>
       </div>
     </>
   );
