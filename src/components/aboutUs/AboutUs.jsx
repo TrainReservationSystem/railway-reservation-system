@@ -48,7 +48,6 @@ const AboutUs = () => {
 
           <h3>About Us</h3>
         </div>
-        <hr />
 
         <p>
           Indian Railway Catering and Tourism Corporation Ltd. (IRCTC) is a
@@ -63,20 +62,18 @@ const AboutUs = () => {
           ₹250 crores and paid up capital is ₹160 crores. It's registered and
           Corporate Office is situated at New Delhi.
         </p>
-        <hr />
 
         <h3>The core activities of the Company are detailed below:</h3>
-        <hr />
+
         <ul className="list">
           <li>Catering & Hospitality</li>
           <li>Internet Ticketing</li>
           <li>Travel & Tourism</li>
           <li>Packaged Drinking Water (Rail Neer)</li>
         </ul>
-        <hr />
 
         <h3>At present, the Company operates through:</h3>
-        <hr />
+
         <ul className="list">
           <li>
             Fourteen Rail Neer Plants at Nangloi-Delhi, Danapur-Bihar,
