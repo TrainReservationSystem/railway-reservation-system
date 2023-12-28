@@ -1,6 +1,6 @@
 import React, { } from "react";
 
-function SignUp() {
+const SignUp = () => {
   return (
     <>
       <div className="container">
@@ -82,51 +82,51 @@ function SignUp() {
               </div>
 
               <div className="row g-2">
-                <div className="col-sm-6" style={{ marginTop: "16px", paddingLeft: "8px"}}>
-                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                <input type="password" className="form-control" id="confirmPassword" placeholder="" required />
+                <div className="col-sm-6" style={{ marginTop: "16px", paddingLeft: "8px" }}>
+                  <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                  <input type="password" className="form-control" id="confirmPassword" placeholder="" required />
+                  <div className="invalid-feedback">
+                    Valid password is required.
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-5">
+                <label htmlFor="country" className="form-label">Country</label>
+                <select className="form-select" id="country" required>
+                  <option value="">Choose...</option>
+                  <option>United States</option>
+                </select>
                 <div className="invalid-feedback">
-                  Valid password is required.
+                  Please select a valid country.
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                <label htmlFor="state" className="form-label">State</label>
+                <select className="form-select" id="state" required>
+                  <option value="">Choose...</option>
+                  <option>California</option>
+                </select>
+                <div className="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+
+              <div className="col-md-3">
+                <label htmlFor="zip" className="form-label">Zip</label>
+                <input type="text" className="form-control" id="zip" placeholder="" required />
+                <div className="invalid-feedback">
+                  Zip code required.
                 </div>
               </div>
             </div>
 
-            <div className="col-md-5">
-              <label htmlFor="country" className="form-label">Country</label>
-              <select className="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div className="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              <label htmlFor="state" className="form-label">State</label>
-              <select className="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div className="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <label htmlFor="zip" className="form-label">Zip</label>
-              <input type="text" className="form-control" id="zip" placeholder="" required />
-              <div className="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-        </div>
-
-        <hr className="my-4"></hr>
-        <button className="w-40 btn btn-primary btn-lg" type="submit">Submit</button>
-        <button className="w-40 btn btn-danger btn-lg m-3" type="reset">Clear</button>
-      </form>
-    </div >
+            <hr className="my-4"></hr>
+            <button className="w-40 btn btn-primary btn-lg" type="submit">Submit</button>
+            <button className="w-40 btn btn-danger btn-lg m-3" type="reset">Clear</button>
+          </form>
+        </div >
       </div >
     </>
   );

@@ -55,11 +55,11 @@ img {
 .about-list label {
   color: #20247b;
   font-weight: 600;
-  width: 88px;
+
   margin: 0;
   position: relative;
 }
-.about-list label:after {
+/* .about-list label:after {
   content: "";
   position: absolute;
   top: 0;
@@ -75,7 +75,7 @@ img {
   transform: rotate(15deg);
   margin: auto;
   opacity: 0.5;
-}
+} */
 .about-list p {
   margin: 0;
   font-size: 15px;
@@ -120,4 +120,15 @@ mark {
 }
 .dark-color {
     color: #20247b;
+}
+
+p {
+  font-size: large;
+}
+
+/* UserProfile.css */
+
+.about-list .media label,
+.about-list .media p {
+  font-size: 20px; /* Adjust the size as needed */
 }
