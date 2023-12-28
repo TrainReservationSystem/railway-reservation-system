@@ -125,7 +125,7 @@ const App = () => {
           }
         />
         <Route
-          path='userprofile'
+          path='userprof'
           element={
             <UserRoutes>
               <UserProfile />
