@@ -8,14 +8,14 @@ const ClassCard = ({ classType, availability }) => {
   return (
     <>
       <div
-        className={`container border rounded p-3 my-3 ${
+        className={`container rounded p-3 my-3 ${
           isAvailable
-            ? "border-success text-success"
+            ? "alert alert-success"
             : isWaitlisted
-            ? "border-danger text-danger"
+            ? "alert alert-danger"
             : ""
         }`}
-        style={{ maxWidth: "150px" }}
+        style={{ width: "18%" }}
       >
         <div className="class-type">{classType}</div>
         <div className="availability">{availability}</div>
