@@ -13,23 +13,19 @@ import ContactUs from "./components/aboutUs/ContactUs";
 import Faqs from "./components/aboutUs/Faqs";
 import UserLogin from "./components/authentication/UserLogin";
 import SignUp from "./components/user/SignUp";
-import UserManagement from "./components/user/UserManagement.jsx";
 import MyBookings from "./components/user/MyBookings";
 import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
-import MyBookings from './components/user/MyBookings';
 
 
 import {
   AddTrain,
   TrainList,
   TrainStatus,
-  TrainManagement,
 } from './components/train/trainIndex.js';
 import AdminHome from './components/admin/AdminHome';
 import {
   BookingSuccess,
-  PaymentPage,
   PassengerDetails,
 
 } from "./components/bookings/bookingsIndex.js";
