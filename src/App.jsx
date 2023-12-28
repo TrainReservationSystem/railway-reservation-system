@@ -95,9 +95,9 @@ const App = () => {
         <Route
           path='trainstatus'
           element={
-            <UserRoutes>
+            <AdminRoutes>
               <TrainStatus />
-            </UserRoutes>
+            </AdminRoutes>
           }
         />
         <Route
