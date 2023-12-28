@@ -1,81 +1,105 @@
-import React from "react";
-import trainLogo from "../../assets/trainLogo.jpg";
-import { Link } from "react-router-dom";
+import React from 'react';
+import trainLogo from '../../assets/trainLogo.jpg';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Header2 = () => {
+  const navigate = useNavigate();
+
+  const { role, setNewRole } = useAuth();
+
+  const handleLogout = () => {
+    setNewRole('');
+    navigate('/');
+  };
+
   return (
-    <header class="p-3 text-bg-dark">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <img src={trainLogo} alt="logo" className="me-5 img-fluid logo-img" />
+    <header className='p-3 text-bg-light bg-dark'>
+      <div className='container'>
+        <div className='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
+          <Link to='/'>
+            <img
+              src={trainLogo}
+              alt='logo'
+              className='me-5 img-fluid logo-img'
+            />
+          </Link>
 
           <a
-            href="/"
-            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+            href='/'
+            className='d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none'
           >
             <svg
-              class="bi me-2"
-              width="40"
-              height="32"
-              role="img"
-              aria-label="Bootstrap"
+              className='bi me-2'
+              width='40'
+              height='32'
+              role='img'
+              aria-label='Bootstrap'
             >
-              <use xlinkHref="#bootstrap"></use>
+              <use xlinkHref='#bootstrap'></use>
             </svg>
           </a>
 
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li>
-              <Link to="/" class="nav-link px-2 text-white">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" class="nav-link px-2 text-white">
-                ContactUs
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" class="nav-link px-2 text-white">
-                AboutUs
-              </Link>
-            </li>
-            <li>
-              <Link to="/faqs" class="nav-link px-2 text-white">
-                FAQs
-              </Link>
-            </li>
+          <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
+            <LiTag link='/' tag='Home' />
+            <LiTag link='/contact' tag='Contact Us' />
+            <LiTag link='/about' tag='About Us' />
+            <LiTag link='/faqs' tag='FAQs' />
           </ul>
 
-          {/* <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-            <input
-              type="search"
-              class="form-control form-control-dark text-bg-dark"
-              placeholder="Search..."
-              aria-label="Search"
-            />
-          </form> */}
-
-          <div class="text-end">
-            <button type="button" class="btn btn-outline-light me-2">
-              <Link to="/login" class="nav-link px-2 text-white">
-                Login
-              </Link>
-            </button>
-            <button type="button" class="btn btn-outline-light me-2">
-            <Link to="/signup" class="nav-link px-2 text-white">
-                SignUp
-              </Link>
-            </button>
-            <button type="button" class="btn btn-danger me-2">
-            <Link to="/adminlogin" class="nav-link px-2 text-white">
-                Admin
-              </Link>
-            </button>
+          <div className='text-end bg-dark p-2 rounded'>
+            {role !== '' ? (
+              <>
+                {role === 'user' && (
+                  <>
+                    <Btns link='/userprof' tag='Profile' color='primary' />
+                    <Btns
+                      link='/mybookings'
+                      tag='My Bookings'
+                      color='warning'
+                    />
+                  </>
+                )}
+                <button
+                  className='btn btn-danger mx-1 px-2'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ): (
+              <>
+                <Btns link='/userlogin' tag='Login' color='primary' />
+                <Btns link='/signup' tag='Register' color='success' />
+                <Btns link='/adminlogin' tag='Admin' color='danger' />
+              </>
+            )}
           </div>
         </div>
       </div>
     </header>
+  );
+};
+
+const Btns = ({ link, tag, color }) => {
+  return (
+    <Link to={link} className={`btn btn-${color} mx-1 px-2`}>
+      {tag}
+    </Link>
+  );
+};
+
+const LiTag = ({ link, tag }) => {
+  return (
+    <li>
+      <Link
+        to={link}
+        className='nav-link px-2 text-light'
+        style={{ fontSize: '20px' }}
+      >
+        {tag}
+      </Link>
+    </li>
   );
 };
 

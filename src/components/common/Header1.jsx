@@ -1,9 +1,5 @@
-import App from "../../App";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import trainLogo from "../../assets/trainLogo.jpg";
-import { Link, Switch, Route } from "react-router-dom";
-import Landing from "../landing/Landing";
-import AboutUs from "../aboutUs/AboutUs";
+import { Link } from "react-router-dom";
 import "../../style.css";
 
 const Header = () => {
