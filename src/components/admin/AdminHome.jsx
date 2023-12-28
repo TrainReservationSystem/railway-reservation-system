@@ -20,12 +20,14 @@ const AdminHome = () => {
             Train management
           </button>
           <br />
-          <button
-            type="button"
-            className="btn btn-outline-primary btn-lg mb-5 mx-5"
-          >
-            User management
-          </button>
+          <Link to="/usermanagement">
+            <button
+              type="button"
+              className="btn btn-outline-primary btn-lg mb-5 mx-5"
+            >
+              User management
+            </button>
+          </Link>
           <br />
           <button type="button" className="btn btn-outline-primary btn-lg mx-5">
             Payment management
@@ -52,12 +54,14 @@ const AdminHome = () => {
               </button>
             </Link>
             <br />
-            <button
-              type="button"
-              className="btn btn-outline-danger btn-lg ms-5"
-            >
-              Cancel train
-            </button>
+            <Link to="/canceltrain" >
+              <button
+                type="button"
+                className="btn btn-outline-danger btn-lg ms-5"
+              >
+                Cancel train
+              </button>
+            </Link>
           </div>
         )}
       </div>

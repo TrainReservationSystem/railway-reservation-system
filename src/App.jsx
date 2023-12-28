@@ -6,15 +6,20 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-} from 'react-router-dom';
-import AboutUs from './components/aboutUs/AboutUs';
-import ContactUs from './components/aboutUs/ContactUs';
-import Faqs from './components/aboutUs/Faqs';
-import UserLogin from './components/authentication/UserLogin';
-import SignUp from './components/user/SignUp';
+
+} from "react-router-dom";
+import AboutUs from "./components/aboutUs/AboutUs";
+import ContactUs from "./components/aboutUs/ContactUs";
+import Faqs from "./components/aboutUs/Faqs";
+import UserLogin from "./components/authentication/UserLogin";
+import SignUp from "./components/user/SignUp";
+import UserManagement from "./components/user/UserManagement.jsx";
+import MyBookings from "./components/user/MyBookings";
+import AdminLogin from "./components/authentication/AdminLogin";
+import MainDiv from "./components/MainDiv";
 import MyBookings from './components/user/MyBookings';
-import AdminLogin from './components/authentication/AdminLogin';
-import MainDiv from './components/MainDiv';
+
+
 import {
   AddTrain,
   TrainList,
@@ -26,12 +31,15 @@ import {
   BookingSuccess,
   PaymentPage,
   PassengerDetails,
-} from './components/bookings/bookingsIndex.js';
-import { AuthProvider } from './contexts/AuthContext';
-import UserProfile from './components/user/UserProfile';
-import EditProfile from './components/user/EditProfile';
+
+} from "./components/bookings/bookingsIndex.js";
+import { AuthProvider } from "./contexts/AuthContext";
+import UserProfile from "./components/user/UserProfile";
+import EditProfile from "./components/user/EditProfile";
+import CancelTrain from "./components/train/CancelTrain.jsx";
 import AdminRoutes from './components/admin/AdminRoutes.jsx';
 import UserRoutes from './components/user/UserRoutes.jsx';
+
 
 const App = () => {
   const appStyles = {
@@ -44,6 +52,8 @@ const App = () => {
     createRoutesFromElements(
       <Route path='/' element={<MainDiv />}>
         <Route index element={<Landing />} />
+
+        <Route path="canceltrain" element={<CancelTrain />} />
         <Route path='about' element={<AboutUs />} />
         <Route path='contact' element={<ContactUs />} />
         <Route path='faqs' element={<Faqs />} />
