@@ -16,7 +16,7 @@ import SignUp from "./components/user/SignUp";
 import MyBookings from "./components/user/MyBookings";
 import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
-
+import UserManagement from './components/user/UserManagement.jsx';
 
 import {
   AddTrain,
@@ -59,7 +59,7 @@ const App = () => {
         <Route path='userlogin' element={<UserLogin />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='adminlogin' element={<AdminLogin />} />
-
+        
         <Route
           path='adminhome'
           element={
@@ -73,6 +73,14 @@ const App = () => {
           element={
             <AdminRoutes>
               <AddTrain />
+            </AdminRoutes>
+          }
+        />
+        <Route
+          path='usermanagement'
+          element={
+            <AdminRoutes>
+              <UserManagement />
             </AdminRoutes>
           }
         />
