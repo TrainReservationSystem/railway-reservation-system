@@ -30,6 +30,7 @@ import {
 import { AuthProvider } from "./contexts/AuthContext";
 import UserProfile from "./components/user/UserProfile";
 import EditProfile from "./components/user/EditProfile";
+import PaymentManagement from "./components/admin/PaymentManagement.jsx";
 
 const App = () => {
   const appStyles = {
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="mybookings" element={<MyBookings />} />
         <Route path="userprof" element={<UserProfile />} />
         <Route path="edituserprofile" element={<EditProfile />} />
+        <Route path="paymentmanagement" element={<PaymentManagement />} />
 
         {/* why am I not able to use 'userprofile' instead of 'userprof' in the above line. If I use 'userprofile' then landing page is not shown*/}
         <Route path="*" element={<Landing />} />

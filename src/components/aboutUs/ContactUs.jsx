@@ -2,79 +2,135 @@ import React from "react";
 
 const ContactUs = () => {
   return (
-    <div className="overlay">
-      <header>
-        <div className="header">
-          <h2 className="header-text">You may Contact Us</h2>
+    <>
+      <div className="contact3 py-5">
+        <div className="row no-gutters">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="card-shadow">
+                  <img
+                    src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/2.jpg"
+                    className="img-fluid"
+                    alt="loading"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="contact-box ml-3">
+                  <h1 className="font-weight-light mt-2">Quick Contact</h1>
+                  <form className="mt-4">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <div className="form-group mt-2">
+                          <input
+                            className="form-control"
+                            type="text"
+                            placeholder="name"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-group mt-2">
+                          <input
+                            className="form-control"
+                            type="email"
+                            placeholder="email address"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-group mt-2">
+                          <input
+                            className="form-control"
+                            type="text"
+                            placeholder="phone"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-group mt-2">
+                          <textarea
+                            className="form-control"
+                            rows="3"
+                            placeholder="message"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <button
+                          type="submit"
+                          className="btn btn-danger-gradiant mt-3 text-white border-0 px-3 py-2"
+                        >
+                          <span> SUBMIT</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div className="card mt-4 border-0 mb-4">
+                  <div className="row">
+                    <div className="col-lg-4 col-md-4">
+                      <div className="card-body d-flex align-items-center c-detail pl-0">
+                        <div className="mr-3 align-self-center">
+                          <img
+                            src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon1.png"
+                            alt="loading"
+                          />
+                        </div>
+                        <div className="">
+                          <h6 className="font-weight-medium">Address</h6>
+                          <p className="">
+                            601 Sherwood Ave.
+                            <br /> San Bernandino
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4">
+                      <div className="card-body d-flex align-items-center c-detail">
+                        <div className="mr-3 align-self-center">
+                          <img
+                            src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon2.png"
+                            alt="loading"
+                          />
+                        </div>
+                        <div className="">
+                          <h6 className="font-weight-medium">Phone</h6>
+                          <p className="">
+                            251 546 9442
+                            <br /> 630 446 8851
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4">
+                      <div className="card-body d-flex align-items-center c-detail">
+                        <div className="mr-3 align-self-center">
+                          <img
+                            src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon3.png"
+                            alt="loading"
+                          />
+                        </div>
+                        <div className="">
+                          <h6 className="font-weight-medium">Email</h6>
+                          <p className="">
+                            info@wrappixel.com
+                            <br /> 123@wrappixel.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </header>
-      <main className="main">
-        <div className="main-header">
-          <p>
-            <strong>Customer Care Numbers :</strong>
-            <span>14646 (Language: Hindi and English)</span>
-          </p>
-        </div>
-
-        <div className="main-booking-contact">
-          <p>
-            <strong>For Railway tickets booked through IRCTC</strong>
-          </p>
-          <ul className="lists">
-            <li className="list">
-              <strong>General Information</strong>
-            </li>
-            <li className="list">
-              <strong>I-tickets/e-tickets :</strong>
-              <a href="mailto:care@irctc.co.in">care@irctc.co.in</a>
-            </li>
-            <li className="list">
-              <strong>For Cancellation E-tickets :</strong>
-              <a href="mailto:etickets@irctc.co.in">etickets@irctc.co.in</a>
-            </li>
-            <li className="list">
-              <strong>For IRCTC iMudra Prepaid Wallet & Card :</strong>
-              <a href="mailto:imudracare@irctc.co.in">imudracare@irctc.co.in</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="body">
-          <p>
-            For IRCTC SBI Card users who do not receive the card within 01 month
-            from the date of application kindly call on the Railway SBI Card
-            Helpline nos. at 0124-39021212 or 18001801295 (if calling from
-            BSNL/MTNL line) or send email to{" "}
-            <a href="mailto:customercare@sbicard.com">
-              customercare@sbicard.com
-            </a>
-            . For other queries on your IRCTC SBI card account, kindly email at{" "}
-            <a href="mailto:loyaltyprogram@irctc.co.in">
-              loyaltyprogram@irctc.co.in
-            </a>
-          </p>
-        </div>
-      </main>
-
-      <footer className="footer">
-        <ul>
-          <li>
-            <strong>Registered Office / Corporate Office</strong>
-          </li>
-          <li>
-            <strong>
-              Indian Railway Catering and Tourism Corporation Ltd.,
-            </strong>
-          </li>
-          <li>
-            <strong>B-148, 11th Floor, Statesman House,</strong>
-          </li>
-          <li>
-            <strong>Barakhamba Road, New Delhi 110001</strong>
-          </li>
-        </ul>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 };
 

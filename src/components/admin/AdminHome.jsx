@@ -27,9 +27,14 @@ const AdminHome = () => {
             User management
           </button>
           <br />
-          <button type="button" className="btn btn-outline-primary btn-lg mx-5">
-            Payment management
-          </button>
+          <Link to="/paymentmanagement">
+            <button
+              type="button"
+              className="btn btn-outline-primary btn-lg mx-5"
+            >
+              Payment management
+            </button>
+          </Link>
         </div>
 
         {showTrainManagement && (
