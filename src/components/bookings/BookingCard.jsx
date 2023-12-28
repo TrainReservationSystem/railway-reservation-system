@@ -33,7 +33,6 @@ const BookingCard = ({ booking }) => {
           </MDBCardText>
           <button className="btn btn-dark">Cancel Booking</button>
         </MDBCardBody>
-        <br />
       </MDBCard>
     </>
   );

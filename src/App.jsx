@@ -36,9 +36,11 @@ import {
 import { AuthProvider } from "./contexts/AuthContext";
 import UserProfile from "./components/user/UserProfile";
 import EditProfile from "./components/user/EditProfile";
+import PaymentManagement from "./components/admin/PaymentManagement.jsx";
 import CancelTrain from "./components/train/CancelTrain.jsx";
 import AdminRoutes from './components/admin/AdminRoutes.jsx';
 import UserRoutes from './components/user/UserRoutes.jsx';
+
 
 
 const App = () => {
@@ -53,6 +55,7 @@ const App = () => {
       <Route path='/' element={<MainDiv />}>
         <Route index element={<Landing />} />
 
+        <Route path="paymentmanagement" element={<PaymentManagement />} />
         <Route path="canceltrain" element={<CancelTrain />} />
         <Route path='about' element={<AboutUs />} />
         <Route path='contact' element={<ContactUs />} />
