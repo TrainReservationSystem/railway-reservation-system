@@ -12,6 +12,7 @@ import ContactUs from "./components/aboutUs/ContactUs";
 import Faqs from "./components/aboutUs/Faqs";
 import UserLogin from "./components/authentication/UserLogin";
 import SignUp from "./components/user/SignUp";
+import UserManagement from "./components/user/UserManagement.jsx";
 import MyBookings from "./components/user/MyBookings";
 import AdminLogin from "./components/authentication/AdminLogin";
 import MainDiv from "./components/MainDiv";
@@ -30,6 +31,7 @@ import {
 import { AuthProvider } from "./contexts/AuthContext";
 import UserProfile from "./components/user/UserProfile";
 import EditProfile from "./components/user/EditProfile";
+import CancelTrain from "./components/train/CancelTrain.jsx";
 
 const App = () => {
   const appStyles = {
@@ -46,11 +48,13 @@ const App = () => {
         <Route path="contact" element={<ContactUs />} />
         <Route path="faqs" element={<Faqs />} />
         <Route path="userlogin" element={<UserLogin />} />
+        <Route path="usermanagement" element={<UserManagement />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="adminlogin" element={<AdminLogin />} />
         <Route path="trainlist" element={<TrainList />} />
         <Route path="adminhome" element={<AdminHome />} />
         <Route path="addtrain" element={<AddTrain />} />
+        <Route path="canceltrain" element={<CancelTrain />} />
         <Route path="trainstatus" element={<TrainStatus />} />
         <Route path="passengerdetails" element={<PassengerDetails />} />
         <Route path="booksuccess" element={<BookingSuccess />} />
