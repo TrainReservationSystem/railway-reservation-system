@@ -19,7 +19,7 @@ const EditProfile = () => {
                       width="150"
                     />
                     <div className="mt-3">
-                      <h4>Joe Root</h4>
+                      <h4>Meet Vasani</h4>
                      
                     </div>
                   </div>
