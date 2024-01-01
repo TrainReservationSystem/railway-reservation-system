@@ -21,17 +21,17 @@ const UserProfile = () => {
                   <div className="col-md-6">
                     <div className="media">
                       <label>First Name</label>
-                      <p>Joe</p>
+                      <p>Meet</p>
                     </div>
 
                     <div className="media">
                       <label>Last Name</label>
-                      <p>Root</p>
+                      <p>Vasani</p>
                     </div>
                     
                     <div className="media">
                       <label>Birth Date</label>
-                      <p>01/01/1995</p>
+                      <p>23/07/2001</p>
                     </div>
                     <div className="media">
                       <label>Address</label>
@@ -44,7 +44,7 @@ const UserProfile = () => {
                   <div className="col-md-6">
                     <div className="media">
                       <label>E-mail</label>
-                      <p>joeroot@gmail.com</p>
+                      <p>meetvasani@gmail.com</p>
                     </div>
 
                     <div className="media">

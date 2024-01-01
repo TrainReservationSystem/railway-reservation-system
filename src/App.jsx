@@ -59,6 +59,7 @@ const App = () => {
         <Route path='userlogin' element={<UserLogin />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='adminlogin' element={<AdminLogin />} />
+        <Route path='trainlist' element={<TrainList />} />
         
         <Route
           path='adminhome'
@@ -84,14 +85,14 @@ const App = () => {
             </AdminRoutes>
           }
         />
-        <Route
+        {/* <Route
           path='trainlist'
           element={
             <UserRoutes>
               <TrainList />
             </UserRoutes>
           }
-        />
+        /> */}
         <Route
           path='trainstatus'
           element={
