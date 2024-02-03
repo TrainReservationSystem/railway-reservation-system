@@ -35,22 +35,14 @@ import PaymentManagement from './components/admin/PaymentManagement.jsx';
 import CancelTrain from './components/train/CancelTrain.jsx';
 import AdminRoutes from './components/admin/AdminRoutes.jsx';
 import UserRoutes from './components/user/UserRoutes.jsx';
-// import { TrainProvider } from './contexts/TrainContext.jsx';
+import { TrainProvider } from './contexts/TrainContext.jsx';
 
 const App = () => {
-  const appStyles = {
-    // backgroundColor: "#C5FFF8",
-    minHeight: '100vh',
-    width: '100%',
-  };
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<MainDiv />}>
         <Route index element={<Landing />} />
 
-        <Route path="paymentmanagement" element={<PaymentManagement />} />
-        <Route path="canceltrain" element={<CancelTrain />} />
         <Route path='about' element={<AboutUs />} />
         <Route path='contact' element={<ContactUs />} />
         <Route path='faqs' element={<Faqs />} />
@@ -58,7 +50,7 @@ const App = () => {
         <Route path='signup' element={<SignUp />} />
         <Route path='adminlogin' element={<AdminLogin />} />
         <Route path='trainlist' element={<TrainList />} />
-        
+
         <Route
           path='adminhome'
           element={
@@ -67,8 +59,8 @@ const App = () => {
             </AdminRoutes>
           }
         >
-        <Route
-          path='/adminhome/mngtrain'
+          <Route
+            path='/adminhome/mngtrain'
             element={
               <AdminRoutes>
                 <TrainManagement />
@@ -77,14 +69,14 @@ const App = () => {
           >
             <Route
               path='/adminhome/mngtrain/addtrain'
-          element={
-            <AdminRoutes>
-              <AddTrain />
-            </AdminRoutes>
-          }
-        />
-        <Route
-          path='/adminhome/mngtrain/trainstatus'
+              element={
+                <AdminRoutes>
+                  <AddTrain />
+                </AdminRoutes>
+              }
+            />
+            <Route
+              path='/adminhome/mngtrain/trainstatus'
               element={
                 <AdminRoutes>
                   <TrainStatus />
@@ -103,12 +95,12 @@ const App = () => {
 
           <Route
             path='/adminhome/usermanagement'
-          element={
-            <AdminRoutes>
-              <UserManagement />
-            </AdminRoutes>
-          }
-        />
+            element={
+              <AdminRoutes>
+                <UserManagement />
+              </AdminRoutes>
+            }
+          />
 
           <Route
             path='/adminhome/paymentmanagement'
@@ -126,14 +118,6 @@ const App = () => {
             <UserRoutes>
               <TrainList />
             </UserRoutes>
-          }
-        /> */},
-        {/* <Route
-          path='trainstatus'
-          element={
-            <AdminRoutes>
-              <TrainStatus />
-            </AdminRoutes>
           }
         /> */}
         <Route
@@ -177,6 +161,7 @@ const App = () => {
           }
         />
 
+        {/* why am I not able to use 'userprofile' instead of 'userprof' in the above line. If I use 'userprofile' then landing page is not shown*/}
         <Route path='*' element={<Landing />} />
       </Route>
     )
@@ -184,9 +169,9 @@ const App = () => {
 
   return (
     <AuthProvider>
-      {/* <TrainProvider> */}
+      <TrainProvider>
         <RouterProvider router={router} />
-      {/* </TrainProvider> */}
+      </TrainProvider>
     </AuthProvider>
   );
 };
