@@ -39,7 +39,7 @@ const Footer = () => {
                 <use xlinkHref="#facebook"></use>
               </svg>
             </a>
-          </li>
+          </li> 
         </ul>
       </footer>
     </div>
