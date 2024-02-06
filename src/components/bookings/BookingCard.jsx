@@ -10,11 +10,11 @@ import {
 } from "mdb-react-ui-kit";
 
 const BookingCard = ({ booking }) => {
-  var status = {
-    booked: "success",
-    cancelled: "danger",
-    waiting: "warning",
-  };
+  // var status = {
+  //   booked: "success",
+  //   cancelled: "danger",
+  //   waiting: "warning",
+  // };
   return (
     <>
       <MDBCard

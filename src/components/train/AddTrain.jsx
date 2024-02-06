@@ -21,12 +21,21 @@ const AddTrain = () => {
         <div className='col-md-6 order-md-1 me-2'>
           <form>
             <DetailsTag htmlFor="trainNo" tag="Train No."/>
+            <DetailsTag htmlFor="routeId" tag="Route ID"/>
             <DetailsTag htmlFor="trainName" tag="Train Name"/>
             <DetailsTag htmlFor="source" tag="Source"/>
+            <DetailsTag htmlFor="source" tag="Intermediate"/>
             <DetailsTag htmlFor="destination" tag="Destination"/>
             <DetailsTag htmlFor="departureTime" tag="Departure Time"/>
             <DetailsTag htmlFor="arrivalTime" tag="Arrival Time"/>
-            <DetailsTag htmlFor="baseFare" tag="Base Fare"/>            
+            <DetailsTag htmlFor="baseFare" tag="Base Fare"/>
+            {/* <DetailsTag htmlFor="runDate" tag="Run Date" type="date"/> */}
+            <DetailsTag htmlFor="runsOn" tag="Runs On"/>
+
+            <DetailsTag htmlFor="duration" tag="Duration"/>
+            
+            <DetailsTag htmlFor="cancelStatus" tag="Cancel Status" type="checkbox"/>
+            <DetailsTag htmlFor="runningStatus" tag="Running Status" type="checkbox"/>
             <button type='submit' className='btn btn-primary w-100 text-center'>
               Add
             </button>
@@ -54,13 +63,23 @@ const ClassTag = ({ htmlFor, tag }) => {
   );
 };
 
-const DetailsTag = ({ htmlFor, tag }) => {
+const DetailsTag = ({ htmlFor, tag, type = "text" }) => {
+  if (type === "checkbox") {
+    return (
+      <div className='mb-3 form-check'>
+        <input type="checkbox" className='form-check-input' id={htmlFor} />
+        <label className='form-check-label' htmlFor={htmlFor}>{tag}</label>
+      </div>
+    );
+  }
+
   return (
     <div className='mb-3 d-flex'>
       <label htmlFor={htmlFor} className='form-label w-25'>
         {tag}
       </label>
-      <input type='text' className='form-control w-75' id={htmlFor} />
+      <input type={type} className='form-control w-75' id={htmlFor} />
     </div>
   );
 };
+
