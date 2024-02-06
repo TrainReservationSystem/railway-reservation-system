@@ -3,7 +3,22 @@
     padding: 0;
 }
 .logo-img {
-    max-height: 125px; 
-    max-width: 125px; 
+    max-height: 50px; 
+    max-width: 100px; 
+  }
+
+  .newClass{
+    min-width: 10%;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 500;
   }
   
+  .trainListLeft {
+    position: sticky;
+    top: 20px;
+  }
+  .trainList {
+    min-height: calc(100vh - 144.8px);
+  }

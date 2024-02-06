@@ -1,4 +1,12 @@
-## Use Pascal font in case of component names.
+Naming Conventions —>
+- component names - Pascal Case
+- ⁠variable names - camel case 
+- ⁠CSS style classnames - camel case 
+- ⁠function names - camel case 
+- ⁠folder names - lowercase
+- ⁠Git Branch name - lowercase
+- ⁠assets - lowercase
+#please use comments wherever necessary
 ## Normal tags are in lowercase.
 
 Clone the React Project Repository:
