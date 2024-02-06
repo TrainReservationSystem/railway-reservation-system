@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
@@ -28,29 +29,33 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div>
-      <h2>Feedback Form</h2>
+    <div className="container mt-5">
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Feedback Form
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
+        <div className="mb-3">
+          <label className="form-label">Name:</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div>
-          <label>Rating:</label>
+        <div className="mb-3">
+          <label className="form-label">Rating:</label>
           <input
             type="number"
             name="rating"
@@ -58,17 +63,21 @@ const FeedbackForm = () => {
             max="5"
             value={formData.rating}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div>
-          <label>Comments:</label>
+        <div className="mb-3">
+          <label className="form-label">Comments:</label>
           <textarea
             name="comments"
             value={formData.comments}
             onChange={handleChange}
+            className="form-control"
           ></textarea>
         </div>
-        <button type="submit">Submit Feedback</button>
+        <button type="submit" className="btn btn-primary">
+          Submit Feedback
+        </button>
       </form>
     </div>
   );
