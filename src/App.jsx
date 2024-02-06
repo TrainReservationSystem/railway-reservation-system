@@ -35,6 +35,7 @@ import PaymentManagement from './components/admin/PaymentManagement.jsx';
 import CancelTrain from './components/train/CancelTrain.jsx';
 import AdminRoutes from './components/admin/AdminRoutes.jsx';
 import UserRoutes from './components/user/UserRoutes.jsx';
+import FeedbackPage from './components/aboutUs/FeedbackPage'
 // import { TrainProvider } from './contexts/TrainContext.jsx';
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
         <Route path='signup' element={<SignUp />} />
         <Route path='adminlogin' element={<AdminLogin />} />
         <Route path='trainlist' element={<TrainList />} />
+        <Route path='feedback' element={<FeedbackPage />} />
         
         <Route
           path='adminhome'
