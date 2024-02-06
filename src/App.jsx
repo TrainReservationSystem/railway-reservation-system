@@ -39,11 +39,11 @@ import FeedbackPage from './components/aboutUs/FeedbackPage'
 // import { TrainProvider } from './contexts/TrainContext.jsx';
 
 const App = () => {
-  const appStyles = {
-    // backgroundColor: "#C5FFF8",
-    minHeight: '100vh',
-    width: '100%',
-  };
+  // const appStyles = {
+  //   // backgroundColor: "#C5FFF8",
+  //   minHeight: '100vh',
+  //   width: '100%',
+  // };
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -59,7 +59,7 @@ const App = () => {
         <Route path='signup' element={<SignUp />} />
         <Route path='adminlogin' element={<AdminLogin />} />
         <Route path='trainlist' element={<TrainList />} />
-        <Route path='feedback' element={<FeedbackPage />} />
+        <Route path='/adminhome/feedback' element={<FeedbackPage />} />
         
         <Route
           path='adminhome'
