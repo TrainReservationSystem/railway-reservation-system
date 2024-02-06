@@ -1,9 +1,8 @@
-import React from "react";
-
+import React, { useState } from "react";
 import BookingCard from "../bookings/BookingCard";
 
 export default function App() {
-  const bookings = [
+  const initialBookings = [
     {
       bid: "1Af56C",
       pnr: 4536382926,
@@ -30,11 +29,39 @@ export default function App() {
     },
   ];
 
+  const [bookings, setBookings] = useState(initialBookings);
+  const [filteredBookings, setFilteredBookings] = useState(initialBookings);
+
+  const handleAllBookings = () => {
+    setFilteredBookings(bookings);
+  };
+
+  const handlePreviousBookings = () => {
+    const previousBookings = bookings.filter(
+      (booking) => booking.status === "cancelled"
+    );
+    setFilteredBookings(previousBookings);
+  };
+
+  const handleUpcomingBookings = () => {
+    const upcomingBookings = bookings.filter(
+      (booking) => booking.status === "waiting" || booking.status === "booked"
+    );
+    setFilteredBookings(upcomingBookings);
+  };
+
   return (
     <div className="container" style={{ width: "1000px" }}>
-      {bookings.map((booking, index) => (
-        <BookingCard key={index} booking={booking} />
-      ))}
+      <div>
+        <button onClick={handleAllBookings}>All Bookings</button>
+        <button onClick={handlePreviousBookings}>Previous Bookings</button>
+        <button onClick={handleUpcomingBookings}>Upcoming Bookings</button>
+      </div>
+      <div>
+        {filteredBookings.map((booking, index) => (
+          <BookingCard key={index} booking={booking} />
+        ))}
+      </div>
     </div>
   );
 }
