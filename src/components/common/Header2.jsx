@@ -26,7 +26,7 @@ const Header2 = () => {
           </Link>
 
           <Link to="/" className="text-light text-decoration-none">
-            <h1 className="text-light text-decoration-none" >RailConnect</h1>
+            <h1 className="text-light text-decoration-none">RailConnect</h1>
           </Link>
           <a
             href="/"
@@ -43,12 +43,21 @@ const Header2 = () => {
             </svg>
           </a>
 
-          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <LiTag link="/" tag="Home" />
-            <LiTag link="/contact" tag="Contact Us" />
-            <LiTag link="/about" tag="About Us" />
-            <LiTag link="/faqs" tag="FAQs" />
-          </ul>
+          {role === "admin" ? (
+            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <LiTag link="/adminhome/mngtrain" tag="Trains" />
+              <LiTag link="/adminhome/usermanagement" tag="Users" />
+              <LiTag link="/adminhome/paymentmanagement" tag="Payments" />
+              <LiTag link="/adminhome/feedback" tag="Feedback" />
+            </ul>
+          ) : (
+            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <LiTag link="/" tag="Home" />
+              <LiTag link="/contact" tag="Contact Us" />
+              <LiTag link="/about" tag="About Us" />
+              <LiTag link="/faqs" tag="FAQs" />
+            </ul>
+          )}
 
           <div className="text-end bg-dark p-2 rounded">
             {role !== "" ? (
