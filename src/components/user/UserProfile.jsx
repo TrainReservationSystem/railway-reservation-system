@@ -8,10 +8,9 @@ const UserProfile = () => {
       <section className="section about-section gray-bg" id="about">
         <div className="container">
           <Link to="/edituserprofile">
-            <button className="btn btn-warning float-end">
-              Edit Profile
-            </button>
+            <button className="btn btn-warning float-end">Edit Profile</button>
           </Link>
+          <button className="btn btn-warning float-end">Delete Profile</button>
           {/* Shift the above button to appropriate place please */}
           <div className="row align-items-center flex-row-reverse">
             <div className="col-lg-8">
@@ -28,7 +27,7 @@ const UserProfile = () => {
                       <label>Last Name</label>
                       <p>Vasani</p>
                     </div>
-                    
+
                     <div className="media">
                       <label>Birth Date</label>
                       <p>23/07/2001</p>
@@ -37,10 +36,8 @@ const UserProfile = () => {
                       <label>Address</label>
                       <p> 2, Suprab Apt, Uthalsar Naka, Thane West, Mumbai </p>
                     </div>
-                    
                   </div>
 
-                  
                   <div className="col-md-6">
                     <div className="media">
                       <label>E-mail</label>
