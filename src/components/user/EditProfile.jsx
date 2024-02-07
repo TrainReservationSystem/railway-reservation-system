@@ -1,8 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EditProfile.css";
 import { Link } from "react-router-dom";
 
 const EditProfile = () => {
+  // State for form fields and profile image
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    birthdate: "",
+    gender: "",
+    mobileNumber: "",
+    email: "",
+    username: "",
+    country: "",
+    state: "",
+    zip: "",
+  });
+  const [profileImage, setProfileImage] = useState(null);
+
+  // Function to handle form field changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Function to handle profile image upload
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add logic to handle form submission (e.g., sending data to server)
+    console.log("Form submitted:", formData);
+    console.log("Profile image:", profileImage);
+    // Clear form fields and profile image after submission
+    setFormData({
+      firstName: "",
+      lastName: "",
+      birthdate: "",
+      gender: "",
+      mobileNumber: "",
+      email: "",
+      username: "",
+      country: "",
+      state: "",
+      zip: "",
+    });
+    setProfileImage(null);
+  };
+
   return (
     <>
       <div className="container">
@@ -13,26 +65,24 @@ const EditProfile = () => {
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                      src={profileImage ? URL.createObjectURL(profileImage) : "https://bootdey.com/img/Content/avatar/avatar7.png"}
                       alt="Admin"
                       className="rounded-circle"
                       width="150"
                     />
                     <div className="mt-3">
-                      <h4>Meet Vasani</h4>
-                     
+                      <input type="file" onChange={handleImageChange} />
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div className="col-md-8">
               <h4 className="mb-3 mt-3">Edit Profile</h4>
-              <form className="">
+              <form onSubmit={handleSubmit}>
 
-                <div className="row g-3">
+              <div className="row g-3">
                   <div className="col-sm-6">
                     <label htmlFor="firstName" className="form-label">First name</label>
                     <input type="text" className="form-control" id="firstName" placeholder="" required />
@@ -127,18 +177,14 @@ const EditProfile = () => {
                     </div>
                   </div>
                 </div>
-
                 <hr className="my-4"></hr>
                 <button className="w-40 btn btn-primary btn-lg" type="submit">Save</button>
-
                 <Link to="/userprof">
-
                   <button className="w-40 btn btn-danger btn-lg m-3">Cancel</button>
                 </Link>
-
                 <button className="w-40 btn btn-success btn-lg" type="reset">Clear</button>
               </form>
-            </div >
+            </div>
           </div>
         </div>
       </div>
