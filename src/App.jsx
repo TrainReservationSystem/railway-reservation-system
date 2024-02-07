@@ -12,7 +12,7 @@ import ContactUs from './components/aboutUs/ContactUs';
 import Faqs from './components/aboutUs/Faqs';
 import UserLogin from './components/authentication/UserLogin';
 import SignUp from './components/user/SignUp';
-import MyBookings from './components/user/MyBookings';
+import MyBookings from './components/bookings/MyBookings';
 import AdminLogin from './components/authentication/AdminLogin';
 import MainDiv from './components/MainDiv';
 import UserManagement from './components/user/UserManagement.jsx';
