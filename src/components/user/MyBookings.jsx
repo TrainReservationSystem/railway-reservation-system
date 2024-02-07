@@ -7,6 +7,7 @@ export default function App() {
     {
       bid: "1Af56C",
       pnr: 4536382926,
+      tno: 1234,
       // status: "booked",
       tickets:3,
       to: "pune",
@@ -16,6 +17,7 @@ export default function App() {
     {
       bid: "3Df87T",
       pnr: 4536382926,
+      tno: 4446,
       // status: "cancelled",
       tickets:1,
       to: "mumbai",
@@ -26,6 +28,7 @@ export default function App() {
       bid: "8K56FE",
       pnr: 4536382926,
       // status: "waiting",
+      tno: 7896,
       tickets:2,
       to: "hyderabad",
       from: "chennai",

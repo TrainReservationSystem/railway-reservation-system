@@ -22,14 +22,18 @@ const BookingCard = ({ booking }) => {
         background={"primary"}
         className="text-white mb-3 mt-5 h-25"
       >
-        <MDBCardHeader>Booking ID : {booking.bid}</MDBCardHeader>
+        {/* <MDBCardHeader> PNR : {booking.pnr} Train Number : </MDBCardHeader> */}
+        <MDBCardHeader>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <span style={{ fontSize: '1.25rem' }}>PNR: {booking.pnr}</span>
+            <span style={{ fontSize: '1.25rem' }}>Train Number: {booking.tno}</span> {/* Assuming you have the train number in booking.trainNumber */}
+          </div>
+        </MDBCardHeader>
         <MDBCardBody>
           <MDBRow>
             <MDBCol size="6">
               <MDBCardTitle>Seats : {booking.tickets}</MDBCardTitle>
               <MDBCardText>
-                PNR : {booking.pnr}
-                <br />
                 From : {booking.from}
                 <br />
                 To : {booking.to}
@@ -42,7 +46,7 @@ const BookingCard = ({ booking }) => {
               <MDBCardText>
                 <MDBRow>
                   <MDBCol size="6">
-                    <MDBCardTitle>Passengers : {booking.tickets}</MDBCardTitle>
+                    <MDBCardTitle>Passengers : </MDBCardTitle>
                     ABCD
                     <br />
                     PQR
@@ -51,7 +55,7 @@ const BookingCard = ({ booking }) => {
                     <br />
                   </MDBCol>
                   <MDBCol size="6">
-                    <MDBCardTitle>Booking Status</MDBCardTitle>
+                    <MDBCardTitle>Booking Status : </MDBCardTitle>
                     Confirm
                     <br />
                     Confirm
