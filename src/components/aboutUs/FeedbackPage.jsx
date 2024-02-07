@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./FeedbackPage.module.css";
+<<<<<<< HEAD
+import styles from "./FeedbackPage.css";
+=======
+//import styles from "./FeedbackPage.css";
+>>>>>>> 42e026780510f9d61647d1369229282637a05d23
 
-const FeedbackForm = () => {
+const FeedbackPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -84,4 +88,4 @@ const FeedbackForm = () => {
   );
 };
 
-export default FeedbackForm;
+export default FeedbackPage;
