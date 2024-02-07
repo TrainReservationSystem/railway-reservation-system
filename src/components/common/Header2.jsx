@@ -47,7 +47,10 @@ const Header2 = () => {
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <LiTag link="/adminhome/mngtrain" tag="Manage Trains" />
               <LiTag link="/adminhome/usermanagement" tag="Manage Users" />
-              <LiTag link="/adminhome/paymentmanagement" tag="Manage Payments" />
+              <LiTag
+                link="/adminhome/paymentmanagement"
+                tag="Manage Payments"
+              />
               <LiTag link="/adminhome/feedback" tag="Feedback" />
             </ul>
           ) : (
