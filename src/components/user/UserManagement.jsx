@@ -1,72 +1,75 @@
-// UserManagement.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import UserCard from "./UserCard";
 
 const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [users, setUsers] = useState([
-    {
-      userId: 8101,
-      username: "Meetvasani",
-      email: "m@gmail.com",
-      status: "active",
-    },
-    {
-      userId: 8102,
-      username: "Jayeshsuthar",
-      email: "j@gmail.com",
-      status: "inactive",
-    },
-    {
-      userId: 8103,
-      username: "Yashpathak",
-      email: "y@gmail.com",
-      status: "active",
-    },
-    {
-      userId: 8104,
-      username: "Dhruvdalal",
-      email: "d@gmail.com",
-      status: "active",
-    },
-    {
-      userId: 8105,
-      username: "Rohanchavan",
-      email: "rc@gmail.com",
-      status: "inactive",
-    },
-    {
-      userId: 8106 ,
-      username: "Rohitgaikar",
-      email: "r@gmail.com",
-      status: "inactive",
-    },
-  ]);
-
+  const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/users/getAllUsers");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSearch = () => {
     const filtered = users.filter(
       (user) =>
-        user.userId.toString().includes(searchTerm) ||
+        user.id.toString().includes(searchTerm) ||
         user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredUsers(filtered);
   };
 
-  const handleToggleStatus = (userId) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => {
-        if (user.userId === userId) {
+  const handleToggleInactive = async (userId) => {
+    try {
+      const updatedUsers = users.map((user) => {
+        if (user.id === userId) {
           return {
             ...user,
-            status: user.status === "active" ? "inactive" : "active",
+            active: false,
           };
         }
         return user;
-      })
-    );
+      });
+
+      setUsers(updatedUsers);
+
+      // Update status to inactive on the backend
+      await axios.put(`http://localhost:8080/users/${userId}/status/inactive`);
+    } catch (error) {
+      console.error("Error toggling user status to inactive:", error);
+    }
+  };
+
+  const handleToggleActive = async (userId) => {
+    try {
+      const updatedUsers = users.map((user) => {
+        if (user.id === userId) {
+          return {
+            ...user,
+            active: true,
+          };
+        }
+        return user;
+      });
+
+      setUsers(updatedUsers);
+
+      // Update status to active on the backend
+      await axios.put(`http://localhost:8080/users/${userId}/status/active`);
+    } catch (error) {
+      console.error("Error toggling user status to active:", error);
+    }
   };
 
   return (
@@ -102,16 +105,18 @@ const UserManagement = () => {
           {filteredUsers.length > 0
             ? filteredUsers.map((user) => (
                 <UserCard
-                  key={user.userId}
+                  key={user.id}
                   user={user}
-                  onToggleStatus={handleToggleStatus}
+                  onToggleInactive={handleToggleInactive}
+                  onToggleActive={handleToggleActive}
                 />
               ))
             : users.map((user) => (
                 <UserCard
-                  key={user.userId}
+                  key={user.id}
                   user={user}
-                  onToggleStatus={handleToggleStatus}
+                  onToggleInactive={handleToggleInactive}
+                  onToggleActive={handleToggleActive}
                 />
               ))}
         </div>

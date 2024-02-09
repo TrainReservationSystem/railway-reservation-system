@@ -1,24 +1,28 @@
-// UserCard.js
 import React from "react";
 
-const UserCard = ({ user, onToggleStatus }) => {
-  const statusColor =
-    user.status === "active" ? "text-success" : "text-danger";
+const UserCard = ({ user, onToggleInactive, onToggleActive }) => {
+  const statusColor = user.active ? "text-success" : "text-danger";
 
   return (
     <div className={`row ${statusColor} mb-2`}>
-      <div className="col">{user.userId}</div>
+      <div className="col">{user.id}</div>
       <div className="col">{user.username}</div>
       <div className="col">{user.email}</div>
-      <div className="col">{user.status}</div>
+      <div className="col">{user.active ? "Active" : "Inactive"}</div>
       <div className="col">
         <button
-          className={`btn btn-sm ${
-            user.status === "active" ? "btn-danger" : "btn-success"
-          }`}
-          onClick={() => onToggleStatus(user.userId)}
+          className={`btn btn-sm btn-danger me-2`}
+          onClick={() => onToggleInactive(user.id)}
+          disabled={!user.active}
         >
-          {user.status === "active" ? "Set Inactive" : "Set Active"}
+          Set Inactive
+        </button>
+        <button
+          className={`btn btn-sm btn-success`}
+          onClick={() => onToggleActive(user.id)}
+          disabled={user.active}
+        >
+          Set Active
         </button>
       </div>
     </div>
