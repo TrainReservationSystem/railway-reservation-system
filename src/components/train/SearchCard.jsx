@@ -1,50 +1,56 @@
 // SearchCard.js
-import React from "react";
-import ClassCard from "./ClassCard";
-import { Link } from "react-router-dom";
+import React from 'react';
+import ClassCard from './ClassCard';
 
-// static search data
-const SearchCard = ({ data }) => {
+const SearchCard = ({ data, duration }) => {
+  const generateClassTypes = (data) => {
+    const classTypes = [];
+
+    if (data.acSeats > 0) {
+      classTypes.push({ type: 'AC', availability: data.acSeats });
+    }
+
+    if (data.sleeperSeats > 0) {
+      classTypes.push({ type: 'SL', availability: data.sleeperSeats });
+    }
+
+    if (data.generalSeats > 0) {
+      classTypes.push({ type: 'General', availability: data.generalSeats });
+    }
+
+    return classTypes;
+  };
+
+  const classTypes = generateClassTypes(data);
+
   return (
-    <>
-      <div className="container border border-primary rounded px-2 my-3">
+    <div className="card border-primary mb-3">
+      <div className="card-header">
         <div className="d-flex justify-content-between align-items-center">
           <div className="name">
             {data.trainName} ({data.trainNumber})
           </div>
-          <div className="middle">Runs On: {data.runsOn}</div>
-          <a className="end" href={data.scheduleLink}>
-            Train Schedule
-          </a>
+          <div>Runs On: {data.runsOn}</div>
+          <a href={data.scheduleLink} className="btn btn-sm btn-outline-primary">Train Schedule</a>
         </div>
-
-        {/* Time */}
-        <div className="row mt-1">
-          <div className="col-4">
-            {data.departureTime} | {data.departureStation}
-          </div>
-          <div className="col-4 text-center"> -- {data.duration} --</div>
-          <div className="col-4 text-end">
-            {data.arrivalTime} | {data.arrivalStation}
-          </div>
-        </div>
-
-        {/* ClassCard */}
-        <Link to="/passengerdetails">
-          <div className="d-flex flex-wrap ">
-            {Object.entries(data.classTypes).map(
-              ([type, availability], index) => (
-                <ClassCard
-                  key={index}
-                  classType={type}
-                  availability={availability}
-                />
-              )
-            )}
-          </div>
-        </Link>
       </div>
-    </>
+      <div className="card-body">
+        <div className="row mb-3">
+          <div className="col">{data.arrivalTime} | {data.source}</div>
+          <div className="col text-center">-- {duration} --</div>
+          <div className="col text-end">{data.departureTime} | {data.destination}</div>
+        </div>
+        <div className="d-flex flex-wrap">
+          {classTypes.map((classType, index) => (
+            <ClassCard
+              key={index}
+              classType={classType.type}
+              availability={classType.availability}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 
