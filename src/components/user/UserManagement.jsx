@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UserCard from "./UserCard";
+import config from '../../config';
 
 const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,7 +11,7 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/users/getAllUsers");
+        const response = await axios.get(`${config.server}/users/getAllUsers`);
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

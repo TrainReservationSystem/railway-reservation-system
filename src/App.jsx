@@ -1,5 +1,6 @@
 // App.js
 import React from 'react';
+import { ToastContainer } from 'react-toastify'
 import Landing from './components/landing/Landing';
 import {
   Route,
@@ -189,7 +190,10 @@ const App = () => {
       {/* <TrainProvider> */}
         <RouterProvider router={router} />
       {/* </TrainProvider> */}
+      <ToastContainer />
+
     </AuthProvider>
+    
   );
 };
 
