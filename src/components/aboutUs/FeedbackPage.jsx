@@ -1,39 +1,37 @@
+// FeedbackComponent.js
+
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config'; // Import the server URL from config.js
 
 const FeedbackComponent = () => {
   const [feedbackData, setFeedbackData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Mock data to be used if API integration is not set up yet
-  const mockFeedbackData = [
-    { id: 1, userId: 1234, email: 'user1@example.com', feedback: 'Your app is lagging.' },
-    { id: 2, userId: 1234, email: 'user1@example.com', feedback: 'The booking process was easy.' },
-    { id: 3, userId: 5678, email: 'user2@example.com', feedback: 'The website is taking too much time to load.' },
-    { id: 4, userId: 5678, email: 'user2@example.com', feedback: 'The UI was excellent.' },
-    { id: 5, userId: 9012, email: 'user3@example.com', feedback: 'Wonderful experience.' },
-  ];
-
   useEffect(() => {
-    // Replace with your actual API call when needed
     const fetchFeedback = async () => {
-      // const response = await fetch('/api/feedback');
-      // const data = await response.json();
-      // setFeedbackData(data);
-
-      // Use the mock data if there's no API integration yet
-      setFeedbackData(mockFeedbackData);
+      try {
+        const response = await axios.get(`${config.server}/feedback/getAllFeedback`);
+        setFeedbackData(response.data);
+      } catch (error) {
+        console.error('Error fetching feedback:', error);
+      }
     };
 
     fetchFeedback();
-  });
+  }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const searchFeedback = async () => {
-    // Implement your search logic if using an API
-    // ...
+    try {
+      const response = await axios.get(`${config.server}/api/feedback?userId=${searchTerm}`);
+      setFeedbackData(response.data);
+    } catch (error) {
+      console.error('Error searching feedback:', error);
+    }
   };
 
   const filteredFeedback = feedbackData.filter((feedback) =>
