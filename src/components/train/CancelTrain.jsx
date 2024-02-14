@@ -9,47 +9,44 @@ const CancelTrain = () => {
   const [trains, setTrains] = useState([]);
 
   useEffect(() => {
-    // Fetch train data from the backend API
+    fetchTrains(); // Fetch trains initially
+  }, []); // No dependencies, fetch once on component mount
+
+  const fetchTrains = () => {
     axios
-      .get(`${config.server}/trains/view`, {
-        params: { source: "Chennai", destination: "Mumbai", date: "2024-02-19" }
-      })
+      .get(`${config.server}/trains/view`)
       .then((response) => {
         setTrains(response.data);
       })
       .catch((error) => {
         console.error("Error fetching train data:", error);
       });
-  }, [cancelDate]); // Update the effect to fetch data when cancelDate changes
-
+  };
   const handleCancelTrain = (trainNumber) => {
     // Make a request to cancel the train with the specified trainNumber and cancelDate
-    axios.put(`${config.server}/trains/${trainNumber}/cancel`, null, {
-      params: { cancelDate },
-    })
-    .then((response) => {
-      if (response.data.success) {
-        // Log success message
-        console.log(response.data.message);
-        // Update the status of the cancelled train locally
-        setTrains((prevTrains) =>
-          prevTrains.map((train) =>
-            train.trainNumber === trainNumber
-              ? { ...train, cancelStatus: true }
-              : train
-          )
-        );
-        toast.success(`Train ${trainNumber} successfully cancelled.`);
-      } else {
-        toast.error(response.data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error cancelling train:", error); // Log error message
-      toast.error("An error occurred while cancelling the train.");
-    });
+    axios
+      .put(`${config.server}/trains/${trainNumber}/cancel`, null, {
+        params: { cancelDate },
+      })
+      .then((response) => {
+        if (response.status===200) {
+          // Display success message if cancellation is successful
+          console.log(`Train ${trainNumber} successfully cancelled.`);
+
+          toast.success(`Train ${trainNumber} successfully cancelled.`);
+        } else {
+          // Display error message if cancellation is not successful
+          toast.error(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error cancelling train:", error);
+        // Display error message for any other errors
+        toast.error("Cannot cancel the train on a day when it's not scheduled to run.");
+      });
   };
   
+
 
   return (
     <div className="container-fluid mt-5">
@@ -72,8 +69,6 @@ const CancelTrain = () => {
             <tr>
               <th>Train Number</th>
               <th>Train Name</th>
-              <th>Active Status</th>
-              <th>Cancel Status</th>
               <th>Runs On</th>
               <th>Cancel Train</th>
             </tr>
@@ -83,17 +78,19 @@ const CancelTrain = () => {
               <tr key={train.trainNumber}>
                 <td>{train.trainNumber}</td>
                 <td>{train.trainName}</td>
-                <td>{train.activeStatus ? "Active" : "Inactive"}</td>
-                <td>{train.cancelStatus ? "Cancelled" : "Not Cancelled"}</td>
                 <td>{train.runsOn}</td>
                 <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleCancelTrain(train.trainNumber)}
-                    // disabled={train.cancelStatus || !cancelDate}
-                  >
-                    Cancel
-                  </button>
+                  {!train.canceled && (
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleCancelTrain(train.trainNumber)}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                  {train.canceled && (
+                    <span className="text-muted">Cancelled</span>
+                  )}
                 </td>
               </tr>
             ))}

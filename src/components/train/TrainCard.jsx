@@ -1,27 +1,26 @@
-
 import React from "react";
 
 const TrainCard = ({ train, onToggleStatus }) => {
   const statusColor =
-    train.status === "active" ? "text-success" : "text-danger";
+    train.activeStatus ? "text-success" : "text-danger";
 
   return (
     <div className={`row ${statusColor} mb-2`}>
-      <div className="col">{train.tno}</div>
-      <div className="col">{train.tname}</div>
-      <div className="col">{train.status}</div>
+      <div className="col">{train.trainNumber}</div>
+      <div className="col">{train.trainName}</div>
+      <div className="col">{train.activeStatus ? "Active" : "Inactive"}</div>
       <div className="col">
         <button
           className={`btn btn-sm ${
-            train.status === "active" ? "btn-danger" : "btn-success"
+            train.activeStatus ? "btn-danger" : "btn-success"
           }`}
-          onClick={() => onToggleStatus(train.tno)}
+          onClick={() => onToggleStatus(train.trainNumber, train.activeStatus ? "inactive" : "active")}
         >
-          {train.status === "active" ? "Set Inactive" : "Set Active"}
+          {train.activeStatus ? "Set Inactive" : "Set Active"}
         </button>
       </div>
     </div>
   );
 };
 
-export default TrainCard
+export default TrainCard;
