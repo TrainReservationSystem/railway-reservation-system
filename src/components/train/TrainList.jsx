@@ -1,5 +1,4 @@
-// TrainList.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import SearchCard from './SearchCard';
@@ -8,10 +7,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
+import { SearchDataProvider } from "../../contexts/SearchDataContext";
 
 const TrainList = () => {
+  const { searchData } = useContext(SearchDataProvider);
   const [hideSidebar, setHideSidebar] = useState(false);
-  const [searchData, setSearchData] = useState({
+  const [localSearchData, setLocalSearchData] = useState({
     from: '',
     to: '',
     date: new Date(),
@@ -33,24 +34,36 @@ const TrainList = () => {
     fetchRoutes();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${config.server}/trains/search`, {
-        params: {
-          source: searchData.from,
-          destination: searchData.to,
-          date: searchData.date.toISOString().split('T')[0],
-        }
-      });
-      setTrainData(response.data);
-    } catch (error) {
-      console.error('Error fetching train data:', error);
-      toast.error('Error fetching train data. Please try again later.');
+  useEffect(() => {
+    if (searchData) {
+      setLocalSearchData(searchData);
     }
-  };
+  }, [searchData]);
 
-  const updateSearchData = (fieldName, newValue) => {
-    setSearchData(prevSearchData => ({
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${config.server}/trains/search`, {
+          params: {
+            source: localSearchData.from,
+            destination: localSearchData.to,
+            date: localSearchData.date.toISOString().split('T')[0],
+          }
+        });
+        setTrainData(response.data);
+      } catch (error) {
+        console.error('Error fetching train data:', error);
+        toast.error('Error fetching train data. Please try again later.');
+      }
+    };
+
+    if (localSearchData.from && localSearchData.to && localSearchData.date) {
+      fetchData(); // Fetch data when localSearchData changes
+    }
+  }, [localSearchData]); // Include localSearchData in the dependency array
+
+  const updatelocalSearchData = (fieldName, newValue) => {
+    setLocalSearchData(prevSearchData => ({
       ...prevSearchData,
       [fieldName]: newValue,
     }));
@@ -66,14 +79,32 @@ const TrainList = () => {
   };
 
   const handleSearch = () => {
-    if (searchData.from && searchData.to && searchData.date) {
-      fetchData();
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${config.server}/trains/search`, {
+          params: {
+            source: localSearchData.from,
+            destination: localSearchData.to,
+            date: localSearchData.date.toISOString().split('T')[0],
+          }
+        });
+        setTrainData(response.data);
+      } catch (error) {
+        console.error('Error fetching train data:', error);
+        toast.error('Error fetching train data. Please try again later.');
+      }
+    };
+    
+
+    if (localSearchData.from && localSearchData.to && localSearchData.date) {
+      fetchData(); // Fetch data when search button is clicked
     } else {
       toast.error('Please select source, destination, and date.');
     }
   };
 
-  const filteredDestinations = routes.filter(route => route.source === searchData.from);
+  const filteredDestinations = routes.filter(route => route.source === localSearchData.from);
 
   return (
     <>
@@ -98,8 +129,8 @@ const TrainList = () => {
             <>
               <select
                 className='form-select my-2'
-                value={searchData.from}
-                onChange={e => updateSearchData('from', e.target.value)}
+                value={localSearchData.from}
+                onChange={e => updatelocalSearchData('from', e.target.value)}
               >
                 <option value=''>Select Source</option>
                 {routes.map((route, index) => (
@@ -110,8 +141,8 @@ const TrainList = () => {
               </select>
               <select
                 className='form-select my-2'
-                value={searchData.to}
-                onChange={e => updateSearchData('to', e.target.value)}
+                value={localSearchData.to}
+                onChange={e => updatelocalSearchData('to', e.target.value)}
               >
                 <option value=''>Select Destination</option>
                 {filteredDestinations.map((route, index) => (
@@ -126,11 +157,11 @@ const TrainList = () => {
                 </div>
                 <div className='col-md-9'>
                   <DatePicker
-                    selected={searchData.date}
+                    selected={localSearchData.date}
                     className='form-control'
                     dateFormat='dd/MM/yyyy'
-                    onSelect={date => updateSearchData('date', date)}
-                    onChange={date => updateSearchData('date', date)}
+                    onSelect={date => updatelocalSearchData('date', date)}
+                    onChange={date => updatelocalSearchData('date', date)}
                   />
                 </div>
               </div>
@@ -145,17 +176,17 @@ const TrainList = () => {
           )}
           {hideSidebar && (
             <div className='text-center'>
-              <span className='my-2'>From: <br />{searchData.from}</span>
+              <span className='my-2'>From: <br />{localSearchData.from}</span>
               <hr />
               <i className=' my-2 bi bi-arrow-down'></i>
               <hr />
-              <span className='my-2'>To: <br />{searchData.to}</span>
+              <span className='my-2'>To: <br />{localSearchData.to}</span>
               <hr />
-              <span className='my-2'>Date: <br />{`${searchData.date.getDate()}/${
-                searchData.date.getMonth() + 1
-              }/${searchData.date.getFullYear()}`}</span>
+              <span className='my-2'>Date: <br />{`${localSearchData.date.getDate()}/${
+                localSearchData.date.getMonth() + 1
+              }/${localSearchData.date.getFullYear()}`}</span>
               <hr />
-              <span className='my-2'>class: <br />{searchData.classType}</span>
+              <span className='my-2'>class: <br />{localSearchData.classType}</span>
             </div>
           )}
         </div>
