@@ -46,7 +46,7 @@ const UserManagement = () => {
       setUsers(updatedUsers);
 
       // Update status to inactive on the backend
-      await axios.put(`http://localhost:8080/users/${userId}/status/inactive`);
+      await axios.put(`${config.server}/users/${userId}/status/inactive`);
     } catch (error) {
       console.error("Error toggling user status to inactive:", error);
     }
@@ -67,7 +67,7 @@ const UserManagement = () => {
       setUsers(updatedUsers);
 
       // Update status to active on the backend
-      await axios.put(`http://localhost:8080/users/${userId}/status/active`);
+      await axios.put(`${config.server}/users/${userId}/status/active`);
     } catch (error) {
       console.error("Error toggling user status to active:", error);
     }
