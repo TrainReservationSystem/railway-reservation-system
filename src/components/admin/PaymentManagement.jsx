@@ -1,114 +1,119 @@
-import React from "react";
-import { useState } from "react";
-import { MDBCheckbox } from "mdb-react-ui-kit";
+import React, { useState, useEffect } from "react";
+import config from '../../config'; // Import the server URL from config.js
 
 const PaymentManagement = () => {
-  const [checked, setChecked] = useState(false);
-  const [trains, setTrains] = useState([
-    {
-      tno: 12912,
-      tname: "Pune Bhuj Express",
-      pnr: 12772673,
-      bid: "15af66",
-      reason: "WL",
-    },
-    {
-      tno: 12912,
-      tname: "Pune Bhuj Express",
-      pnr: 12772673,
-      bid: "15af66",
-      reason: "WL",
-    },
-  ]);
-  return (
-    <>
-      {/* const [searchTerm, setSearchTerm] = useState("");
+  const [checkedTicketIds, setCheckedTicketIds] = useState([]);
+  const [refunds, setRefunds] = useState([]);
+  const [activeTab, setActiveTab] = useState("initiate");
 
+  useEffect(() => {
+    fetchRefunds();
+  }, []);
 
-  const [filteredTrains, setFilteredTrains] = useState([]);
-
-  const handleSearch = () => {
-    const filtered = trains.filter(
-      (train) =>
-        train.tno.toString().includes(searchTerm) ||
-        train.tname.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredTrains(filtered);
+  const fetchRefunds = async () => {
+    try {
+      const response = await fetch(`${config.server}/refund/getAllRefundList`);
+      const data = await response.json();
+      setRefunds(data);
+    } catch (error) {
+      console.error("Error fetching refunds:", error);
+    }
   };
 
-  const handleToggleStatus = (trainNumber) => {
-    setTrains((prevTrains) =>
-      prevTrains.map((train) => {
-        if (train.tno === trainNumber) {
-          return {
-            ...train,
-            status: train.status === "active" ? "inactive" : "active",
-          };
-        }
-        return train;
-      })
+  const toggleTicketSelection = (ticketId) => {
+    setCheckedTicketIds((prevCheckedTicketIds) =>
+      prevCheckedTicketIds.includes(ticketId)
+        ? prevCheckedTicketIds.filter((id) => id !== ticketId)
+        : [...prevCheckedTicketIds, ticketId]
     );
-  }; */}
-      {/* return ( */}
-      <div className="container-fluid mt-5 d-flex align-items-center justify-content-center">
-        <div className="container">
-          <h1>Initiate Refunds</h1>
-          <div className="row mb-4">
-            <div className="col-9">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter Train Number or Name"
-                // value={searchTerm}
-                // onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="col-3">
-              <button className="btn btn-primary w-100">🔎 Search</button>
-            </div>
-          </div>
+  };
 
-          <div className="border border-dark p-3">
-            <div className="row fw-bold mb-2">
-              <div className="col">Train Number</div>
-              <div className="col">Train Name</div>
-              <div className="col">PNR</div>
-              <div className="col">Status</div>
-              <div className="col">Reason</div>
-              <div className="col">
-                <MDBCheckbox
-                  id="controlledCheckbox"
-                  //   label="Controlled checkbox"
-                  checked={checked}
-                  onChange={() => setChecked(!checked)}
-                />
-              </div>
-            </div>
+  const initiateRefund = async () => {
+    try {
+      const response = await fetch(`${config.server}/refund/updateStatus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(checkedTicketIds),
+      });
+      if (response.ok) {
+        // Reload refunds data after initiating refunds
+        fetchRefunds();
+        // Clear selected ticket IDs
+        setCheckedTicketIds([]);
+      } else {
+        console.error("Failed to initiate refunds:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error initiating refunds:", error);
+    }
+  };
 
-            {/* {filteredTrains.length > 0
-              ? filteredTrains.map((train) => (
-                  <TrainCard
-                    key={train.tno}
-                    train={train}
-                    onToggleStatus={handleToggleStatus}
-                  />
-                ))
-              : trains.map((train) => (
-                  <TrainCard
-                    key={train.tno}
-                    train={train}
-                    onToggleStatus={handleToggleStatus}
-                  />
-                ))} */}
-          </div>
+  const filterRefunds = (refundStatus) => {
+    return refunds.filter((refund) => refund.refundStatus === refundStatus);
+  };
+
+  return (
+    <div className="container-fluid mt-5 d-flex align-items-center justify-content-center">
+      <div className="container">
+        <h1>Payment Management</h1>
+        <div className="mb-3">
+          <button
+            className={`btn ${activeTab === "initiate" ? "btn-primary" : "btn-secondary"} me-2`}
+            onClick={() => setActiveTab("initiate")}
+          >
+            Initiate Refund
+          </button>
+          <button
+            className={`btn ${activeTab === "refunded" ? "btn-primary" : "btn-secondary"}`}
+            onClick={() => setActiveTab("refunded")}
+          >
+            Already Refunded
+          </button>
         </div>
+
+        <div className="border border-dark p-3">
+          <div className="row fw-bold mb-2">
+            <div className="col">Train Number</div>
+            <div className="col">Train Name</div>
+            <div className="col">Ticket Id</div>
+            <div className="col">Amount</div>
+            <div className="col">Reason</div>
+            {activeTab === "initiate" && <div className="col">Refund Initiated</div>}
+          </div>
+          {filterRefunds(activeTab === "initiate" ? false : true).map((refund) => (
+            <div className="row mb-2" key={refund.ticketId}>
+              <div className="col">{refund.trainNumber}</div>
+              <div className="col">{refund.trainName}</div>
+              <div className="col">{refund.ticketId}</div>
+              <div className="col">{refund.amount}</div>
+              <div className="col">{refund.reason}</div>
+              {activeTab === "initiate" && (
+                <div className="col">
+                  <input
+                    type="checkbox"
+                    checked={checkedTicketIds.includes(refund.ticketId)}
+                    onChange={() => toggleTicketSelection(refund.ticketId)}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        {activeTab === "initiate" && (
+          <div className="mt-3">
+            <button
+              className="btn btn-success"
+              onClick={initiateRefund}
+              disabled={checkedTicketIds.length === 0}
+            >
+              Initiate Refund
+            </button>
+          </div>
+        )}
       </div>
-      <br />
-      <center>
-        <button className="btn btn-success">Initiate refund</button>
-      </center>
-      {/* ); */}
-    </>
+    </div>
   );
 };
 
