@@ -8,14 +8,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
-import { SearchDataProvider } from "../../contexts/SearchDataContext";
+import  { useSearch }  from "../../contexts/SearchDataContext";
 
 const Landing = () => {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate();
-  const { setSearchData } = useContext(SearchDataProvider);
+  const { searchData,setSearchData } = useSearch(); 
+
 
   const [routes, setRoutes] = useState([]);
 
@@ -33,6 +34,7 @@ const Landing = () => {
   }, []);
 
   const handleSearch = () => {
+    console.log(date,"hi ");
     if (from.trim() && to.trim() && date) {
       setSearchData({
         from,
@@ -45,6 +47,7 @@ const Landing = () => {
     }
   };
 
+  
   return (
     <>
       <div className='mt-2 d-flex justify-content-center align-items-center w-100 text-center' style={{ height: '70vh' }}>
@@ -93,10 +96,12 @@ const Landing = () => {
                 <label className={`me-2 ${styles.newClass} `}>Date</label>
                 <DatePicker
                   selected={date}
+                  dateFormat='dd/MM/yyyy'
                   onChange={(date) => setDate(date)}
                   className='form-control'
                 />
               </div>
+              
               <br />
               <button
                 className='btn btn-outline-primary'

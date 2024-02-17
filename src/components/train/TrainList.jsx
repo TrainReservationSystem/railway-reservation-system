@@ -7,16 +7,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
-import { SearchDataProvider } from "../../contexts/SearchDataContext";
+import {  useSearch } from "../../contexts/SearchDataContext";
 
 const TrainList = () => {
-  const { searchData } = useContext(SearchDataProvider);
+  const { searchData,setSearchData } = useSearch(); 
   const [hideSidebar, setHideSidebar] = useState(false);
   const [localSearchData, setLocalSearchData] = useState({
     from: '',
     to: '',
     date: new Date(),
-    classType: 'all',
+    classType: 'all'
   });
   const [trainData, setTrainData] = useState([]);
   const [routes, setRoutes] = useState([]);
