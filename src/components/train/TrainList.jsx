@@ -33,21 +33,35 @@ const TrainList = () => {
     fetchRoutes();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${config.server}/trains/search`, {
-        params: {
-          source: searchData.from,
-          destination: searchData.to,
-          date: searchData.date.toISOString().split('T')[0],
-        }
-      });
-      setTrainData(response.data);
-    } catch (error) {
-      console.error('Error fetching train data:', error);
-      toast.error('Error fetching train data. Please try again later.');
+  useEffect(() => {
+    if (searchData) {
+      setSearchData(searchData);
     }
-  };
+  }, [searchData]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${config.server}/trains/search`, {
+          params: {
+            source: searchData.from,
+            destination: searchData.to,
+            date: searchData.date.toISOString().split('T')[0],
+          }
+        });
+        setTrainData(response.data);
+      } catch (error) {
+        console.error('Error fetching train data:', error);
+        toast.error('Error fetching train data. Please try again later.');
+      }
+    };
+
+    
+
+    if (searchData.from && searchData.to && searchData.date) {
+      fetchData(); // Fetch data when searchData changes
+    }
+  }, [searchData]); // Include searchData in the dependency array
 
   const updateSearchData = (fieldName, newValue) => {
     setSearchData(prevSearchData => ({
@@ -66,8 +80,26 @@ const TrainList = () => {
   };
 
   const handleSearch = () => {
+    
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${config.server}/trains/search`, {
+          params: {
+            source: searchData.from,
+            destination: searchData.to,
+            date: searchData.date.toISOString().split('T')[0],
+          }
+        });
+        setTrainData(response.data);
+      } catch (error) {
+        console.error('Error fetching train data:', error);
+        toast.error('Error fetching train data. Please try again later.');
+      }
+    };
+
+
     if (searchData.from && searchData.to && searchData.date) {
-      fetchData();
+      fetchData(); // Fetch data when search button is clicked
     } else {
       toast.error('Please select source, destination, and date.');
     }
