@@ -1,13 +1,13 @@
 import React from 'react';
 
 const ClassCard = ({ classType, availability }) => {
-  if (!classType || !availability) {
-    return null; // Return null if classType or availability is not available
+  if (!classType || availability === null || isNaN(availability)) {
+    return null; 
   }
 
-  const isAvailable = parseInt(availability) > 0; // Check if availability is positive
-  const availabilityDisplay = Math.abs(availability); // Display absolute value
-  const status = parseInt(availability) > 0 ? 'AVL' : 'WL'; // Determine status
+  const isAvailable = availability >= 0; 
+  const availabilityDisplay = isAvailable ? availability : Math.abs(availability) + ''; 
+  const status = isAvailable ? 'AVL' : 'WL'; 
 
   return (
     <div
