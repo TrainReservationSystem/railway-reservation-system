@@ -1,7 +1,19 @@
 import React from "react";
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import axios from "axios";
+import {
+  MDBCard,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardBody,
+  MDBRow,
+  MDBCol,
+  MDBListGroup,
+  MDBListGroupItem,
+} from "mdb-react-ui-kit";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const BookingCard = ({ booking }) => {
+const BookingCard = ({ booking, setBookings }) => {
   const getTicketStatusColor = (status) => {
     switch (status) {
       case "CONFIRM":
@@ -15,6 +27,34 @@ const BookingCard = ({ booking }) => {
     }
   };
 
+  const cancelBooking = async (pnrNumber, ticketId) => {
+    try {
+      await axios.post(
+        `http://localhost:8080/refund/${pnrNumber}/tickets/${ticketId}/cancel`
+      );
+      toast.success("Booking canceled successfully!");
+      // Update the bookings list by filtering out the canceled booking
+      setBookings((prevBookings) =>
+        prevBookings.map((prevBooking) => ({
+          ...prevBooking,
+          tickets: prevBooking.tickets.map((ticket) => {
+            if (ticket.ticketId === ticketId) {
+              return {
+                ...ticket,
+                status: "CANCEL",
+              };
+            }
+            window.location.href="/mybookings"
+            return ticket;
+          }),
+        }))
+      );
+    } catch (error) {
+      console.error("Error canceling booking:", error);
+      toast.error("Failed to cancel booking. Please try again later.");
+    }
+  };
+
   return (
     <MDBCard className="text-dark mb-3 mt-5 w-100">
       <MDBCardBody className="bg-primary text-white">
@@ -25,49 +65,45 @@ const BookingCard = ({ booking }) => {
           <MDBCol>
             <MDBCardTitle>Seats: {booking.tickets.length}</MDBCardTitle>
             <MDBCardText>
-              From: {booking.fromStation}<br />
-              To: {booking.toStation}<br />
+              From: {booking.fromStation}
+              <br />
+              To: {booking.toStation}
+              <br />
               Date: {booking.dateOfJourney}
             </MDBCardText>
           </MDBCol>
           <MDBCol>
-            <MDBCardText>
-              <MDBRow>
-                <MDBCol>
-                  <MDBCardTitle>Passengers:</MDBCardTitle>
-                  <ul className="list-unstyled">
-                    {booking.tickets.length > 0 ? (
-                      booking.tickets.map((ticket, index) => (
-                        <li key={index}>
-                          <span className={`fw-bold text-${getTicketStatusColor(ticket.status)}`}>
-                            {ticket.seatNumber}
-                          </span>
-                        </li>
-                      ))
-                    ) : (
-                      <li>No passenger information available</li>
-                    )}
-                  </ul>
-                </MDBCol>
-                <MDBCol>
-                  <MDBCardTitle>Booking Status:</MDBCardTitle>
-                  <ul className="list-unstyled">
-                    {booking.tickets.length > 0 ? (
-                      booking.tickets.map((ticket, index) => (
-                        <li key={index} className={`text-${getTicketStatusColor(ticket.status)}`}>
-                          {ticket.status}
-                        </li>
-                      ))
-                    ) : (
-                      <li>No booking status available</li>
-                    )}
-                  </ul>
-                </MDBCol>
-              </MDBRow>
-            </MDBCardText>
+            <MDBCardTitle>Passenger Details:</MDBCardTitle>
+            <MDBListGroup>
+              {booking.tickets.map((ticket, index) => (
+                <MDBListGroupItem
+                  key={index}
+                  className="d-flex justify-content-between align-items-center"
+                >
+                  <span
+                    className={`fw-bold text-${getTicketStatusColor(
+                      ticket.status
+                    )}`}
+                  >
+                    Seat Number: {ticket.seatNumber}, Status: {ticket.status}
+                  </span>
+                  {ticket.status !== "CANCEL" && (
+                    <button
+                      color="danger"
+                      className="btn btn-outline-danger ms-2"
+                      onClick={() =>
+                        cancelBooking(booking.pnrNumber, ticket.ticketId)
+                      }
+                    >
+                      Cancel Booking
+                    </button>
+                  )}
+                
+                </MDBListGroupItem>
+              ))}
+            </MDBListGroup>
           </MDBCol>
         </MDBRow>
-        <button className="btn btn-danger">Cancel Booking</button>
       </MDBCardBody>
     </MDBCard>
   );

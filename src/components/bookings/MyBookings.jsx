@@ -11,7 +11,7 @@ const MyBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const userId = 2; // Replace with the actual user ID
+        const userId = 1; 
         const response = await axios.get(`${config.server}/bookings/mybookings`, {
           headers: {
             userId: userId
@@ -59,7 +59,7 @@ const MyBookings = () => {
       {filteredBookings.map((booking, index) => (
         <div className="row mb-3" key={index}>
           <div className="col">
-            <BookingCard booking={booking} />
+            <BookingCard booking={booking} setBookings={setBookings} />
           </div>
         </div>
       ))}
