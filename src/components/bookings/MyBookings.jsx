@@ -1,98 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import BookingCard from "./BookingCard";
 import "bootstrap/dist/css/bootstrap.min.css";
-import dummyApiData from "./dummyApiData";
+import config from '../../config';
 
 const MyBookings = () => {
-  // const initialBookings = [
-  //   {
-  //     bid: "1Af56C",
-  //     pnr: 4536382926,
-  //     status: "booked",
-  //     tickets: 3,
-  //     to: "Pune",
-  //     from: "Valsad",
-  //     date: "2023-02-01",
-  //   },
-  //   {
-  //     bid: "3Df87T",
-  //     pnr: 4536382926,
-  //     status: "cancelled",
-  //     tickets: 1,
-  //     to: "Mumbai",
-  //     from: "Delhi",
-  //     date: "2023-07-05",
-  //   },
-  //   {
-  //     bid: "8K56FE",
-  //     pnr: 4536382926,
-  //     status: "waiting",
-  //     tickets: 2,
-  //     to: "Hyderabad",
-  //     from: "Chennai",
-  //     date: "2023-04-23",
-  //   },
-  //   {
-  //     bid: "9K27AC",
-  //     pnr: 4536382926,
-  //     status: "cancelled",
-  //     tickets: 2,
-  //     to: "Bangalore",
-  //     from: "Kolkata",
-  //     date: "2022-12-15",
-  //   },
-  //   {
-  //     bid: "4L38FD",
-  //     pnr: 4536382926,
-  //     status: "booked",
-  //     tickets: 1,
-  //     to: "Goa",
-  //     from: "Mumbai",
-  //     date: "2024-01-10",
-  //   },
-  //   // Additional dummy data
-  //   {
-  //     bid: "5E82MJ",
-  //     pnr: 4536382926,
-  //     status: "booked",
-  //     tickets: 2,
-  //     to: "Jaipur",
-  //     from: "Ahmedabad",
-  //     date: "2023-10-20",
-  //   },
-  //   {
-  //     bid: "7N39PM",
-  //     pnr: 4536382926,
-  //     status: "cancelled",
-  //     tickets: 1,
-  //     to: "Lucknow",
-  //     from: "Varanasi",
-  //     date: "2022-11-08",
-  //   },
-  // ];
+  const [bookings, setBookings] = useState([]);
+  const [filteredBookings, setFilteredBookings] = useState([]);
 
-  // const [bookings, setBookings] = useState(initialBookings);
-  // const [filteredBookings, setFilteredBookings] = useState(initialBookings);
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const userId = 2; // Replace with the actual user ID
+        const response = await axios.get(`${config.server}/bookings/mybookings`, {
+          headers: {
+            userId: userId
+          }
+        });
+        setBookings(response.data);
+        setFilteredBookings(response.data); // Initially, show all bookings
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
 
-  const [bookings, setBookings] = useState(dummyApiData); 
-  const [filteredBookings, setFilteredBookings] = useState(dummyApiData);
+    fetchBookings();
+  }, []);
 
+  const currentDate = new Date();
 
   const handleAllBookings = () => {
-    const sortedBookings = [...bookings].sort((a, b) => new Date(a.date) - new Date(b.date));
-    setFilteredBookings(sortedBookings);
+    setFilteredBookings(bookings);
   };
 
   const handlePreviousBookings = () => {
-    const previousBookings = bookings.filter((booking) => booking.status === "cancelled");
-    const sortedPreviousBookings = [...previousBookings].sort((a, b) => new Date(a.date) - new Date(b.date));
-    setFilteredBookings(sortedPreviousBookings);
+    const previousBookings = bookings.filter(booking => new Date(booking.dateOfJourney) < currentDate);
+    setFilteredBookings(previousBookings);
   };
 
   const handleUpcomingBookings = () => {
-    const upcomingBookings = bookings.filter((booking) => booking.status === "waiting" || booking.status === "booked");
-    const sortedUpcomingBookings = [...upcomingBookings].sort((a, b) => new Date(a.date) - new Date(b.date));
-    setFilteredBookings(sortedUpcomingBookings);
+    const upcomingBookings = bookings.filter(booking => new Date(booking.dateOfJourney) >= currentDate);
+    setFilteredBookings(upcomingBookings);
   };
 
   return (
