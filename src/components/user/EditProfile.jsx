@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./EditProfile.css";
+import config from '../../config';
+
 
 const EditProfile = () => {
   // State for form fields and profile image
@@ -14,6 +16,7 @@ const EditProfile = () => {
     gender: "",
     mobileNumber: "",
     email: "",
+    image: "",
   });
   const [profileImage, setProfileImage] = useState(null);
 
@@ -21,7 +24,7 @@ const EditProfile = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/users/userProfile/2"
+          `${config.server}/users/userProfile/2`
         );
         const userData = response.data;
         setFormData(userData);
@@ -56,36 +59,93 @@ const EditProfile = () => {
     setProfileImage(file);
   };
 
-  // Function to handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // // Function to handle form submission
+  // const updateProfileImage = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const formDataToSend = new FormData();
+  //     formDataToSend.append("firstName", formData.firstName);
+  //     formDataToSend.append("lastName", formData.lastName);
+  //     formDataToSend.append("birthDate", formData.birthDate);
+  //     formDataToSend.append("gender", formData.gender);
+  //     formDataToSend.append("mobileNumber", formData.mobileNumber);
+  //     formDataToSend.append("email", formData.email);
+  //     // formDataToSend.append("image", formData.image);
+  //     if (profileImage) {
+  //       formDataToSend.append("imageFile", profileImage); // Use "imageFile" as the key for the image
+  //     }
+
+  //     // Send the request with the correct content type
+  //     await axios.post("${config.server}/users/images/2", formDataToSend, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+  //       },
+  //     });
+
+  //     toast.success("Profile updated successfully.", { autoClose: 5000 });
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //     toast.error("Failed to update profile. Please try again later.", {
+  //       autoClose: 5000,
+  //     });
+  //   }
+  // };
+
+  // Function to handle updating the user details
+  const updateUserDetails = async () => {
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("firstName", formData.firstName);
-      formDataToSend.append("lastName", formData.lastName);
-      formDataToSend.append("birthDate", formData.birthDate);
-      formDataToSend.append("gender", formData.gender);
-      formDataToSend.append("mobileNumber", formData.mobileNumber);
-      formDataToSend.append("email", formData.email);
-      if (profileImage) {
-        formDataToSend.append("imageFile", profileImage); // Use "imageFile" as the key for the image
-      }
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        birthDate: formData.birthDate,
+        gender: formData.gender,
+        mobileNumber: formData.mobileNumber,
+        email: formData.email,
+        // imageFile : profileImage
+      };
 
-      // Send the request with the correct content type
-      await axios.post("http://localhost:8080/users/images/2", formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
-        },
-      });
-
-      toast.success("Profile updated successfully.", { autoClose: 5000 });
+      await axios.put(`${config.server}/users/2`, userData);
+      toast.success("User details updated successfully.", { autoClose: 5000 });
     } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("Failed to update profile. Please try again later.", { autoClose: 5000 });
+      console.error("Error updating user details:", error);
+      toast.error("Failed to update user details. Please try again later.", {
+        autoClose: 5000,
+      });
     }
   };
 
+  // Function to handle updating the profile image
+  const updateProfileImage = async () => {
+    try {
+      const formDataToSend = new FormData();
+      if (profileImage) {
+        formDataToSend.append("imageFile", profileImage);
+        await axios.post(
+          `${config.server}/users/images/2`,
+          formDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        toast.success("Profile image updated successfully.", {
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      console.error("Error updating profile image:", error);
+      toast.error("Failed to update profile image. Please try again later.", {
+        autoClose: 5000,
+      });
+    }
+  };
 
+  // Combined function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await Promise.all([updateUserDetails(), updateProfileImage()]);
+  };
 
   return (
     <>
