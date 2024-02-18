@@ -2,13 +2,13 @@ import React from "react";
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 const BookingCard = ({ booking }) => {
-  const getPassengerStatusColor = (status) => {
+  const getTicketStatusColor = (status) => {
     switch (status) {
-      case "Confirm":
+      case "CONFIRM":
         return "success";
-      case "Waiting":
+      case "WAITING":
         return "warning";
-      case "Cancel":
+      case "CANCEL":
         return "danger";
       default:
         return "dark";
@@ -18,16 +18,16 @@ const BookingCard = ({ booking }) => {
   return (
     <MDBCard className="text-dark mb-3 mt-5 w-100">
       <MDBCardBody className="bg-primary text-white">
-        PNR: {booking.pnr}
+        PNR: {booking.pnrNumber}
       </MDBCardBody>
       <MDBCardBody>
         <MDBRow>
           <MDBCol>
-            <MDBCardTitle>Seats: {booking.tickets}</MDBCardTitle>
+            <MDBCardTitle>Seats: {booking.tickets.length}</MDBCardTitle>
             <MDBCardText>
-              From: {booking.from}<br />
-              To: {booking.to}<br />
-              Date: {booking.date}
+              From: {booking.fromStation}<br />
+              To: {booking.toStation}<br />
+              Date: {booking.dateOfJourney}
             </MDBCardText>
           </MDBCol>
           <MDBCol>
@@ -36,13 +36,12 @@ const BookingCard = ({ booking }) => {
                 <MDBCol>
                   <MDBCardTitle>Passengers:</MDBCardTitle>
                   <ul className="list-unstyled">
-                    {booking.passengers ? (
-                      booking.passengers.map((passenger, index) => (
+                    {booking.tickets.length > 0 ? (
+                      booking.tickets.map((ticket, index) => (
                         <li key={index}>
-                          <span className={`fw-bold text-${getPassengerStatusColor(passenger.status)}`}>
-                            {passenger.name}
+                          <span className={`fw-bold text-${getTicketStatusColor(ticket.status)}`}>
+                            {ticket.seatNumber}
                           </span>
-                         
                         </li>
                       ))
                     ) : (
@@ -53,10 +52,10 @@ const BookingCard = ({ booking }) => {
                 <MDBCol>
                   <MDBCardTitle>Booking Status:</MDBCardTitle>
                   <ul className="list-unstyled">
-                    {booking.passengers ? (
-                      booking.passengers.map((passenger, index) => (
-                        <li key={index} className={`text-${getPassengerStatusColor(passenger.status)}`}>
-                          {passenger.status}
+                    {booking.tickets.length > 0 ? (
+                      booking.tickets.map((ticket, index) => (
+                        <li key={index} className={`text-${getTicketStatusColor(ticket.status)}`}>
+                          {ticket.status}
                         </li>
                       ))
                     ) : (
