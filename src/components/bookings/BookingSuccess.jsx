@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "../../config";
 
 const BookingSuccess = () => {
   const [feedback, setFeedback] = useState("");
@@ -13,7 +14,7 @@ const BookingSuccess = () => {
     setSubmittingFeedback(true);
     try {
       await axios.post(
-        "http://localhost:8080/feedback/feedbackByUser",
+        `${config.server}/feedback/feedbackByUser`,
         { feedback, userId: 2 } // Hardcoded user ID 2
       );
       toast.success("Feedback submitted successfully!");
