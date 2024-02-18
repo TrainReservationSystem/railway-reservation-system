@@ -1,4 +1,3 @@
-// PassengerDetails.jsx
 import React, { useState } from "react";
 import PassengerRow from "./PassengerRow";
 import FareSummary from "./FareSummary";
@@ -6,17 +5,28 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const PassengerDetails = () => {
-  const [passengers, setPassengers] = useState([{ id: 1 }]);
+  const [passengers, setPassengers] = useState([{ id: 1, name: '', gender: '', age: '' }]);
   const baseFare = 100; // Hardcoded base fare
   const maxPassengers = 4;
 
   const addPassenger = () => {
     if (passengers.length < maxPassengers) {
-      const newPassenger = { id: passengers.length + 1 };
+      const newPassenger = { id: passengers.length + 1, name: '', gender: '', age: '' };
       setPassengers([...passengers, newPassenger]);
     } else {
       toast.error("You cannot add more than 4 passengers");
     }
+  };
+
+  // Check if any field is empty
+  const isAnyFieldEmpty = passengers.some(passenger => {
+    return !passenger.name || !passenger.gender || !passenger.age;
+  });
+
+  const handlePassengerChange = (index, details) => {
+    const updatedPassengers = [...passengers];
+    updatedPassengers[index] = details;
+    setPassengers(updatedPassengers);
   };
 
   return (
@@ -28,17 +38,19 @@ const PassengerDetails = () => {
               <h2>Passenger Details</h2>
             </div>
             <div className="col-auto">
-              {passengers.length < maxPassengers && (
-                <button onClick={addPassenger} className="btn btn-info">
-                  Add Passenger
-                </button>
-              )}
+              <button
+                onClick={addPassenger}
+                className="btn btn-info"
+                disabled={isAnyFieldEmpty}
+              >
+                Add Passenger
+              </button>
             </div>
           </div>
           <div className="row">
             <div className="col">
-              {passengers.map((passenger) => (
-                <PassengerRow key={passenger.id} />
+              {passengers.map((passenger, index) => (
+                <PassengerRow key={passenger.id} onChange={(details) => handlePassengerChange(index, details)} />
               ))}
             </div>
           </div>
