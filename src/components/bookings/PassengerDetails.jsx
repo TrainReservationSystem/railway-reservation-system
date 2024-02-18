@@ -1,45 +1,63 @@
+// PassengerDetails.jsx
 import React, { useState } from "react";
 import PassengerRow from "./PassengerRow";
 import FareSummary from "./FareSummary";
-import ContactDetails from "./ContactDetails";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PassengerDetails = () => {
   const [passengers, setPassengers] = useState([{ id: 1 }]);
+  const baseFare = 100; // Hardcoded base fare
+  const maxPassengers = 4;
 
   const addPassenger = () => {
-    const newPassenger = { id: passengers.length + 1 };
-    setPassengers([...passengers, newPassenger]);
+    if (passengers.length < maxPassengers) {
+      const newPassenger = { id: passengers.length + 1 };
+      setPassengers([...passengers, newPassenger]);
+    } else {
+      toast.error("You cannot add more than 4 passengers");
+    }
   };
 
   return (
-    <>
-      <div className="container mt-3">
-        <div className="row">
-          <div className="col-md-9" style={{ maxWidth: "100%" }}>
-            {/* Left side - Passenger Details */}
-            <div style={{ maxWidth: "100%", margin: "auto" }}>
-              {passengers.map((passenger) => (
-                <PassengerRow key={passenger.id} id={passenger.id} />
-              ))}
-              <button onClick={addPassenger} className="btn btn-success m-3">
-                Add Another Passenger
-              </button>
+    <div className="container mt-3">
+      <div className="row">
+        <div className="col-md-9">
+          <div className="row">
+            <div className="col">
+              <h2>Passenger Details</h2>
+            </div>
+            <div className="col-auto">
+              {passengers.length < maxPassengers && (
+                <button onClick={addPassenger} className="btn btn-info">
+                  Add Passenger
+                </button>
+              )}
             </div>
           </div>
-
-          <div className="col-md-3">
-            {/* Right side - Fare Summary */}
-            <FareSummary />
+          <div className="row">
+            <div className="col">
+              {passengers.map((passenger) => (
+                <PassengerRow key={passenger.id} />
+              ))}
+            </div>
           </div>
         </div>
-        <ContactDetails />
-
-        <Link to="/booksuccess" >
-          <button className="btn btn-primary m-3 fs-4">Make Payment</button>
-        </Link>
+        <div className="col-md-3">
+          <FareSummary baseFare={baseFare} passengersCount={passengers.length} />
+        </div>
       </div>
-    </>
+      <div className="row mt-3">
+        <div className="col">
+          <Link to="/booksuccess">
+            <button className="btn btn-primary">Book Ticket</button>
+          </Link>
+        </div>
+        <div className="col">
+          <button className="btn btn-success">Make Payment</button>
+        </div>
+      </div>
+    </div>
   );
 };
 
