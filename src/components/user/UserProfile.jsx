@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import config from '../../config';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../user/UserProfile.css";
 
 const UserProfile = () => {
@@ -14,6 +16,18 @@ const UserProfile = () => {
     mobileNumber: "",
     gender: "",
   });
+
+  const deleteUserProfile = async () => {
+    try {
+      await axios.put(`${config.server}/users/2/status/inactive`);
+      toast.success("Profile deleted successfully!");
+      // Redirect to landing page
+     window.location.href = '/landing' 
+    } catch (error) {
+      console.error("Error deleting user profile:", error);
+      toast.error("Failed to delete profile. Please try again later.");
+    }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -49,7 +63,7 @@ const UserProfile = () => {
     <>
       <section className="section about-section gray-bg" id="about">
         <div className="container">
-          <button className="btn btn-danger float-end">Delete Profile</button>
+          <button className="btn btn-danger float-end" onClick={deleteUserProfile}>Delete Profile</button>
           <Link to="/edituserprofile" state={{ userData }}>
             <button className="btn btn-warning float-end me-2">Edit Profile</button>
           </Link>
