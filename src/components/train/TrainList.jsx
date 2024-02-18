@@ -27,7 +27,7 @@ const TrainList = () => {
         setRoutes(response.data);
       } catch (error) {
         console.error('Error fetching routes data:', error);
-        toast.error('Error fetching routes data. Please try again later.');
+        toast.error('No trains available.');
       }
     };
     fetchRoutes();
@@ -52,7 +52,7 @@ const TrainList = () => {
         setTrainData(response.data);
       } catch (error) {
         console.error('Error fetching train data:', error);
-        toast.error('Error fetching train data. Please try again later.');
+        toast.error('No trains available !');
       }
     };
 
@@ -93,7 +93,7 @@ const TrainList = () => {
         setTrainData(response.data);
       } catch (error) {
         console.error('Error fetching train data:', error);
-        toast.error('Error fetching train data. Please try again later.');
+        toast.error('No trains available.');
       }
     };
 
