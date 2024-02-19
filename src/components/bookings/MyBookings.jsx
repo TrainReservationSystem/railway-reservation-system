@@ -3,15 +3,17 @@ import axios from "axios";
 import BookingCard from "./BookingCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import config from '../../config';
+import { useAuth } from "../../contexts/AuthContext";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
+  const { userId: user } = useAuth();
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const userId = 1; 
+        const userId = user;
         const response = await axios.get(`${config.server}/bookings/mybookings`, {
           headers: {
             userId: userId
@@ -25,7 +27,7 @@ const MyBookings = () => {
     };
 
     fetchBookings();
-  }, []);
+  }, [user]);
 
   const currentDate = new Date();
 

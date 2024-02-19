@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import config from "../../config"
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -18,15 +19,19 @@ const SignUp = () => {
   });
 
   const handleChange = (e) => {
+    e.preventDefault();
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`${config.server}/users/signup`, userData);
       toast.success("Sign up successful!");
+      navigate("/userlogin");
     } catch (error) {
       toast.error("Sign up failed. Please try again.");
     }

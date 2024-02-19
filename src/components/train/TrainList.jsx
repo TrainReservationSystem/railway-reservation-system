@@ -8,17 +8,28 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
+import { useLocation } from 'react-router-dom';
 
 const TrainList = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
-  const [searchData, setSearchData] = useState({
-    from: '',
-    to: '',
-    date: new Date(),
-    classType: 'all',
-  });
+  // const [searchData, setSearchData] = useState({
+  //   from: source,
+  //   to: destination,
+  //   date: date,
+  //   // classType: 'all',
+  // });
+ 
   const [trainData, setTrainData] = useState([]);
   const [routes, setRoutes] = useState([]);
+
+  const location = useLocation();
+  const { from, to, date } = location.state || {}; // Fallback to an empty object if location.state is undefined
+
+  const [searchData, setSearchData] = useState({
+    from: from || "",
+    to: to || "",
+    date: date ? new Date(date) : new Date(),
+  });
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -195,6 +206,7 @@ const TrainList = () => {
         {/* Search Results */}
         <div className='container mt-4 trainList border-start border-dark' style={{ overflowY: 'auto', height: '100%', width: hideSidebar ? '95%' : '75%' }}>
           {trainData.map((result, index) => (
+            //  console.log(result),
             <SearchCard key={index} data={result} duration={calculateDuration(result.departureTime, result.arrivalTime)} />
           ))}
         </div>

@@ -4,15 +4,38 @@ import { useNavigate } from "react-router-dom";
 import { MDBContainer, MDBCol, MDBRow, MDBInput } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import axios from "axios";
+import config from "../../config";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function UserLogin() {
   const navigate = useNavigate();
-  const { setNewRole } = useAuth();
+  const { setRole } = useAuth();
+  const { setUserId } = useAuth();
 
   const handleSignIn = () => {
-    setNewRole("user");
-    navigate("/trainlist");
+
+
+
+    axios.post(`${config.server}/users/signin`, { email, password: pwd })
+      .then((response) => {
+        sessionStorage.setItem("jwt", response.data.jwt)
+        toast.success(response.data.mesg);
+        setUserId(response.data.userId)
+        setRole("user");
+        navigate("/trainlist");
+      }).catch((err) => {
+        setRole("");
+        console.log(err)
+        toast.error("Invalid Credentials");
+        navigate("/userlogin");
+      })
+
   };
+
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
 
   return (
     <MDBContainer className="p-1 mt-5">
@@ -36,6 +59,7 @@ function UserLogin() {
             id="formControld"
             type="email"
             size="lg"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <MDBInput
             wrapperClass="mb-4"
@@ -43,6 +67,7 @@ function UserLogin() {
             id="formControl"
             type="password"
             size="lg"
+            onChange={(e) => setPwd(e.target.value)}
           />
 
           <div className="d-flex justify-content-between  mb-4">

@@ -6,11 +6,12 @@ import { useAuth } from "../../contexts/AuthContext";
 const Header2 = () => {
   const navigate = useNavigate();
 
-  const { role, setNewRole } = useAuth();
+  const { role, setRole } = useAuth();
 
   const handleLogout = () => {
-    setNewRole("");
+    setRole("");
     navigate("/");
+    sessionStorage.removeItem("jwt");
   };
 
   return (

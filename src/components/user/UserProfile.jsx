@@ -5,8 +5,11 @@ import config from "../../config";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../user/UserProfile.css";
+import { useAuth } from "../../contexts/AuthContext";
 
 const UserProfile = () => {
+
+  const { userId } = useAuth();
   const [userData, setUserData] = useState({
     image: null,
     firstName: "",
@@ -21,11 +24,12 @@ const UserProfile = () => {
 
   const deleteUserProfile = async () => {
     try {
-      await axios.put(`${config.server}/users/2/status/inactive`);
+      await axios.put(`${config.server}/users/${userId}/status/inactive`);
       toast.success("Profile deleted successfully!");
       // Redirect to landing page
       //  window.location.href = '/landing'
       navigate("/landing");
+
     } catch (error) {
       console.error("Error deleting user profile:", error);
       toast.error("Failed to delete profile. Please try again later.");
@@ -35,9 +39,9 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const profileResponse = await axios.get(
-          `${config.server}/users/userProfile/2`
-        );
+
+        const profileResponse = await axios.get(`${config.server}/users/userProfile/${userId}`);
+
         const fetchedUserData = profileResponse.data;
 
         // Set user data excluding the image field
@@ -45,12 +49,11 @@ const UserProfile = () => {
         setUserData(userDataWithoutImage);
 
         // Fetch user image separately
-        const imageResponse = await axios.get(
-          `${config.server}/users/images/2`,
-          {
-            responseType: "arraybuffer", // Ensure response is treated as binary data
-          }
-        );
+
+        const imageResponse = await axios.get(`${config.server}/users/images/${userId}`, {
+          responseType: "arraybuffer" // Ensure response is treated as binary data
+        });
+
 
         // Convert the binary image data to Base64 string
         const imageData = new Blob([imageResponse.data], { type: "image/jpg" });
@@ -65,7 +68,7 @@ const UserProfile = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [userId]);
 
   return (
     <>
