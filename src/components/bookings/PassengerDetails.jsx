@@ -59,9 +59,9 @@ const PassengerDetails = () => {
   }
 
   // Check if any field is empty
-  const isAnyFieldEmpty = passengers.some(passenger => {
-    return !passenger.name || !passenger.gender || !passenger.age;
-  });
+  // const isAnyFieldEmpty = passengers.some(passenger => {
+  //   return !passenger.name || !passenger.gender || !passenger.age;
+  // });
 
   // const handlePassengerChange = (index, details) => {
   //   const updatedPassengers = [...passengers];
