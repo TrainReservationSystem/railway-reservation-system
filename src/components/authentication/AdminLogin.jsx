@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   MDBContainer,
@@ -13,14 +13,33 @@ import adminImage from "../../assets/adminlogin.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import axios from "axios";
+import config from "../../config";
+import { toast } from "react-toastify";
 
 function AdminLogin() {
   const navigate = useNavigate();
   const { setNewRole } = useAuth();
 
+  const [userName, setUserName] = useState('');
+  const [pwd, setPwd] = useState('');
+
   const handleSignIn = () => {
-    setNewRole("admin");
-    navigate("/trainlist");
+    
+  
+      axios.post(`${config.server}/admin/signin`, { userName, password: pwd })
+        .then((response) => {
+          // sessionStorage.setItem("jwt", response.data.jwt)
+          toast.success(response.data);
+          setNewRole("admin");
+          navigate("/adminhome");
+        }).catch((err) => {
+          setNewRole("");
+          console.log(err)
+          toast.error("Invalid Credentials");
+          navigate("/adminlogin");
+        })
+    
   };
   return (
     <MDBContainer className="mt-2 ">
@@ -49,10 +68,11 @@ function AdminLogin() {
 
               <MDBInput
                 wrapperClass="mb-2"
-                label="Email address"
+                label="UserName"
                 id="formControlLg"
-                type="email"
+                type="text"
                 size="lg"
+                onChange={(e) => setUserName(e.target.value)}
               />
               <MDBInput
                 wrapperClass="mb-2"
@@ -60,6 +80,7 @@ function AdminLogin() {
                 id="formControlL"
                 type="password"
                 size="lg"
+                onChange={(e) => setPwd(e.target.value)}
               />
               <Link to="/adminhome">
                 <button

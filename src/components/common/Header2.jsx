@@ -11,6 +11,7 @@ const Header2 = () => {
   const handleLogout = () => {
     setNewRole("");
     navigate("/");
+    sessionStorage.removeItem("jwt");
   };
 
   return (

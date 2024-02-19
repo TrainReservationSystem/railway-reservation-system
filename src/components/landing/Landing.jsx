@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
   const [from, setFrom] = useState("");
@@ -16,6 +16,8 @@ const Landing = () => {
   const [date, setDate] = useState(new Date());
 
   const [routes, setRoutes] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -32,17 +34,25 @@ const Landing = () => {
 
   // const handleSearch = () => {
   //   console.log(date,"hi ");
-  //   if (from.trim() && to.trim() && date) {
-  //     setSearchData({
-  //       from,
-  //       to,
-  //       date: date.toISOString().split('T')[0],
-  //     });
-  //     navigate('/trainlist');
-  //   } else {
-  //     toast.error('Please fill in all the fields.');
-  //   }
+  //   // if (from.trim() && to.trim() && date) {
+  //   //   setSearchData({
+  //   //     from,
+  //   //     to,
+  //   //     date: date.toISOString().split('T')[0],
+  //   //   });
+  //   navigate('/trainlist', {from,to,date } );
+  //   // } else {
+  //   //   toast.error('Please fill in all the fields.');
+  //   // }
   // };
+  const handleSearch = () => {
+    if (from.trim() && to.trim() && date) {
+      navigate('/trainlist', { state: { from, to, date: date.toISOString().split('T')[0] } });
+    } else {
+      toast.error('Please fill in all the fields.');
+    }
+  };
+  
 
   return (
     <>
@@ -101,15 +111,15 @@ const Landing = () => {
               </div>
 
               <br />
-              <Link to="/trainlist">
+          
 
               <button
                 className="btn btn-outline-primary"
-                // onClick={handleSearch}
+                onClick={handleSearch}
               >
                 Search
               </button>
-              </Link>
+          
             </div>
           </div>
         </div>
