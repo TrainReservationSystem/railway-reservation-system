@@ -1,12 +1,13 @@
 // SearchCard.js
 import React from "react";
 import ClassCard from "./ClassCard";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const SearchCard = ({ data, duration }) => {
   const generateClassTypes = (data) => {
     const classTypes = [];
-
+    // console.log(data);
     if (data.acSeats !== null && !isNaN(data.acSeats)) {
       classTypes.push({ type: "AC", availability: data.acSeats });
     }
@@ -23,6 +24,12 @@ const SearchCard = ({ data, duration }) => {
   };
 
   const classTypes = generateClassTypes(data);
+  const navigate = useNavigate();
+  const handleClassSelect = (classType) => {
+    navigate("/passengerdetails", {
+      state: { data, selectedClass: classType }, // Pass selected class along with train data
+    });
+  };
 
   return (
     <div className="card border-primary mb-3">
@@ -50,17 +57,22 @@ const SearchCard = ({ data, duration }) => {
             {data.departureTime} | {data.destination}
           </div>
         </div>
-        <Link to="/passengerdetails">
-          <div className="d-flex flex-wrap">
+        {/* <Link to={{
+          pathname: "/passengerdetails",
+          state: { data } // Passing data through state
+        }}> */}
+          <span className="d-inline">
             {classTypes.map((classType, index) => (
+              <div onClick={() => handleClassSelect(classType)} key={index}>
               <ClassCard
                 key={index}
                 classType={classType.type}
                 availability={classType.availability}
               />
+              </div>
             ))}
-          </div>
-        </Link>
+          </span>
+        {/* </Link> */}
       </div>
     </div>
   );
