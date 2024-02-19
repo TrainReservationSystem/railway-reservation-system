@@ -12,6 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "../../config"
 
 const BookingCard = ({ booking, setBookings }) => {
   const getTicketStatusColor = (status) => {
@@ -30,7 +31,7 @@ const BookingCard = ({ booking, setBookings }) => {
   const cancelBooking = async (pnrNumber, ticketId) => {
     try {
       await axios.post(
-        `http://localhost:8080/refund/${pnrNumber}/tickets/${ticketId}/cancel`
+        `${config.server}/refund/${pnrNumber}/tickets/${ticketId}/cancel`
       );
       toast.success("Booking canceled successfully!");
       // Update the bookings list by filtering out the canceled booking
@@ -51,7 +52,7 @@ const BookingCard = ({ booking, setBookings }) => {
       );
     } catch (error) {
       console.error("Error canceling booking:", error);
-      toast.error("Failed to cancel booking. Please try again later.");
+      toast.error("Cannot cancel a previous booking !.");
     }
   };
 
