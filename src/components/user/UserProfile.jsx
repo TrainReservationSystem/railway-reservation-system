@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import config from '../../config';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Link, useNavigate } from "react-router-dom";
+import config from "../../config";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../user/UserProfile.css";
 
 const UserProfile = () => {
@@ -17,12 +17,15 @@ const UserProfile = () => {
     gender: "",
   });
 
+  const navigate = useNavigate();
+
   const deleteUserProfile = async () => {
     try {
       await axios.put(`${config.server}/users/2/status/inactive`);
       toast.success("Profile deleted successfully!");
       // Redirect to landing page
-     window.location.href = '/landing' 
+      //  window.location.href = '/landing'
+      navigate("/landing");
     } catch (error) {
       console.error("Error deleting user profile:", error);
       toast.error("Failed to delete profile. Please try again later.");
@@ -32,7 +35,9 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const profileResponse = await axios.get(`${config.server}/users/userProfile/2`);
+        const profileResponse = await axios.get(
+          `${config.server}/users/userProfile/2`
+        );
         const fetchedUserData = profileResponse.data;
 
         // Set user data excluding the image field
@@ -40,16 +45,19 @@ const UserProfile = () => {
         setUserData(userDataWithoutImage);
 
         // Fetch user image separately
-        const imageResponse = await axios.get(`${config.server}/users/images/2`, {
-          responseType: "arraybuffer" // Ensure response is treated as binary data
-        });
+        const imageResponse = await axios.get(
+          `${config.server}/users/images/2`,
+          {
+            responseType: "arraybuffer", // Ensure response is treated as binary data
+          }
+        );
 
         // Convert the binary image data to Base64 string
         const imageData = new Blob([imageResponse.data], { type: "image/jpg" });
         const avatarUrl = URL.createObjectURL(imageData);
         setUserData((prevUserData) => ({
           ...prevUserData,
-          avatarUrl
+          avatarUrl,
         }));
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -63,9 +71,16 @@ const UserProfile = () => {
     <>
       <section className="section about-section gray-bg" id="about">
         <div className="container">
-          <button className="btn btn-danger float-end" onClick={deleteUserProfile}>Delete Profile</button>
+          <button
+            className="btn btn-danger float-end"
+            onClick={deleteUserProfile}
+          >
+            Delete Profile
+          </button>
           <Link to="/edituserprofile" state={{ userData }}>
-            <button className="btn btn-warning float-end me-2">Edit Profile</button>
+            <button className="btn btn-warning float-end me-2">
+              Edit Profile
+            </button>
           </Link>
           <div className="row align-items-center flex-row-reverse">
             <div className="col-lg-8">
@@ -108,8 +123,23 @@ const UserProfile = () => {
               </div>
             </div>
             <div className="col-lg-4">
-              <div className="about-avatar" style={{ width: "200px", height: "200px", overflow: "hidden" }}>
-                <div style={{ backgroundImage: `url(${userData.avatarUrl ? userData.avatarUrl : "https://bootdey.com/img/Content/avatar/avatar7.png"})`, backgroundSize: "cover", backgroundPosition: "top center", width: "100%", height: "100%" }}></div>
+              <div
+                className="about-avatar"
+                style={{ width: "200px", height: "200px", overflow: "hidden" }}
+              >
+                <div
+                  style={{
+                    backgroundImage: `url(${
+                      userData.avatarUrl
+                        ? userData.avatarUrl
+                        : "https://bootdey.com/img/Content/avatar/avatar7.png"
+                    })`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "top center",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                ></div>
               </div>
             </div>
           </div>
