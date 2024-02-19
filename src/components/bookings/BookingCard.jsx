@@ -12,6 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { useNavigate } from "react-router-dom";
 import config from "../../config"
 
 const BookingCard = ({ booking, setBookings }) => {
@@ -27,6 +28,8 @@ const BookingCard = ({ booking, setBookings }) => {
         return "dark";
     }
   };
+
+  // const navigate = useNavigate();
 
   const cancelBooking = async (pnrNumber, ticketId) => {
     try {
@@ -46,6 +49,7 @@ const BookingCard = ({ booking, setBookings }) => {
               };
             }
             window.location.href="/mybookings"
+            // navigate("/mybookings");
             return ticket;
           }),
         }))
