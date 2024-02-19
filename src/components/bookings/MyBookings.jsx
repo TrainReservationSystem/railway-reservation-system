@@ -20,7 +20,7 @@ const MyBookings = () => {
           }
         });
         setBookings(response.data);
-        setFilteredBookings(response.data); // Initially, show all bookings
+        setFilteredBookings(response.data); 
       } catch (error) {
         console.error("Error fetching bookings:", error);
       }
