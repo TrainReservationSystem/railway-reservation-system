@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 
 function AdminLogin() {
   const navigate = useNavigate();
-  const { setNewRole } = useAuth();
+  const { setRole } = useAuth();
 
   const [userName, setUserName] = useState('');
   const [pwd, setPwd] = useState('');
@@ -31,10 +31,10 @@ function AdminLogin() {
         .then((response) => {
           // sessionStorage.setItem("jwt", response.data.jwt)
           toast.success(response.data);
-          setNewRole("admin");
+          setRole("admin");
           navigate("/adminhome");
         }).catch((err) => {
-          setNewRole("");
+          setRole("");
           console.log(err)
           toast.error("Invalid Credentials");
           navigate("/adminlogin");

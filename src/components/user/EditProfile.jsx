@@ -5,10 +5,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./EditProfile.css";
 import config from '../../config';
+import { useAuth } from "../../contexts/AuthContext";
 
 
 const EditProfile = () => {
   // State for form fields and profile image
+
+  const { userId } = useAuth();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,7 +27,7 @@ const EditProfile = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${config.server}/users/userProfile/2`
+          `${config.server}/users/userProfile/${userId}`
         );
         const userData = response.data;
         setFormData(userData);
@@ -34,7 +37,7 @@ const EditProfile = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [userId]);
 
   // Function to handle form field changes
   const handleInputChange = (e) => {
@@ -104,7 +107,7 @@ const EditProfile = () => {
         // imageFile : profileImage
       };
 
-      await axios.put(`${config.server}/users/2`, userData);
+      await axios.put(`${config.server}/users/${userId}`, userData);
       toast.success("User details updated successfully.", { autoClose: 5000 });
     } catch (error) {
       console.error("Error updating user details:", error);
@@ -121,7 +124,7 @@ const EditProfile = () => {
       if (profileImage) {
         formDataToSend.append("imageFile", profileImage);
         await axios.post(
-          `${config.server}/users/images/2`,
+          `${config.server}/users/images/${userId}`,
           formDataToSend,
           {
             headers: {

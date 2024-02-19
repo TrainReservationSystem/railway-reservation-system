@@ -16,7 +16,7 @@ const SearchCard = ({ data, duration }) => {
     }
 
     if (data.generalSeats !== null && !isNaN(data.generalSeats)) {
-      classTypes.push({ type: "General", availability: data.generalSeats });
+      classTypes.push({ type: "GEN", availability: data.generalSeats });
     }
 
     return classTypes;

@@ -30,10 +30,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   ];
   const navigate = useNavigate();
 
-  const { role, setNewRole } = useAuth();
+  const { role, setRole } = useAuth();
 
   const handleLogout = () => {
-    setNewRole('');
+    setRole('');
     navigate('/');
   };
   return (

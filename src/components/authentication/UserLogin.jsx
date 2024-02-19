@@ -11,25 +11,27 @@ import { toast } from "react-toastify";
 
 function UserLogin() {
   const navigate = useNavigate();
-  const { setNewRole } = useAuth();
+  const { setRole } = useAuth();
+  const { setUserId } = useAuth();
 
   const handleSignIn = () => {
-    
-    
-  
-      axios.post(`${config.server}/users/signin`, { email, password: pwd })
-        .then((response) => {
-          sessionStorage.setItem("jwt", response.data.jwt)
-          toast.success(response.data.mesg);
-          setNewRole("user");
-          navigate("/trainlist");
-        }).catch((err) => {
-          setNewRole("");
-          console.log(err)
-          toast.error("Invalid Credentials");
-          navigate("/userlogin");
-        })
-    
+
+
+
+    axios.post(`${config.server}/users/signin`, { email, password: pwd })
+      .then((response) => {
+        sessionStorage.setItem("jwt", response.data.jwt)
+        toast.success(response.data.mesg);
+        setUserId(response.data.userId)
+        setRole("user");
+        navigate("/trainlist");
+      }).catch((err) => {
+        setRole("");
+        console.log(err)
+        toast.error("Invalid Credentials");
+        navigate("/userlogin");
+      })
+
   };
 
   const [email, setEmail] = useState('');
