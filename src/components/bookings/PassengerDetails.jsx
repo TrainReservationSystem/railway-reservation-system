@@ -17,7 +17,7 @@ const PassengerDetails = () => {
   const location = useLocation();
   const { userId } = useAuth();
   const { data, selectedClass } = location.state || {};
-  const baseFare = 200;
+  const baseFare = data.baseFare;
 
   const handlePassengerDetails = (index, details) => {
     const updatedPassengers = [...passengers];
@@ -35,21 +35,21 @@ const PassengerDetails = () => {
   };
 
   const [bookingDetails, setBookingDetails] = useState({
-    coachType: "AC",
-    userId: 2,
-    trainNumber: 1001,
+    coachType: selectedClass.type,
+    userId: userId,
+    trainNumber: data.trainNumber,
     tickets: [{
       passenger: {
-        passengerName: "Meena",
-        gender: "FEMALE",
-        passengerAge: 27
+        passengerName: "",
+        gender: "",
+        passengerAge: 20
       }
     }],
-    fromStation: "Delhi",
-    toStation: "Mumbai",
+    fromStation: data.source,
+    toStation: data.destination,
     bookingDateTime: new Date(),
-    dateOfJourney: "2024-11-11",
-    totalAmount: 405
+    dateOfJourney: data.dateOfJourney,
+    totalAmount: baseFare* passengers.length
   });
 
   // const bookingDetails = {
@@ -82,25 +82,25 @@ const PassengerDetails = () => {
     //   totalAmount: baseFare * passengers.length,
     // };
     // console.log(bookingDetails);
-    // setBookingDetails((currentDetails) => ({
-    //   ...currentDetails, // Spread existing bookingDetails to keep other fields
-    //   tickets: passengers.map((passenger) => ({
-    //     passengerName: passenger.name,
-    //     gender: passenger.gender,
-    //     passengerAge: passenger.age,
-    //   })),
-    //   totalAmount: baseFare * passengers.length,
-    // }));
+    setBookingDetails((currentDetails) => ({
+      ...currentDetails, // Spread existing bookingDetails to keep other fields
+      tickets: passengers.map((passenger) => ({
+        passengerName: passenger.name,
+        gender: passenger.gender,
+        passengerAge: passenger.age,
+      })),
+      totalAmount: baseFare * passengers.length,
+    }));
     console.log(bookingDetails);
     // Logic for booking ticket
     axios.post(`${config.server}/bookings/addnewbooking`, bookingDetails )
       .then((response) => {
-        // toast(response.data);
+        toast.success("Ticket Booked");
         navigate("/booksuccess");
       }).catch((error) => {
         console.log(error)
         toast.error("Something went Wrong");
-        navigate("/passengerdetails");
+        navigate("/trainlist");
       })
 
   };
