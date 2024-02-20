@@ -2,18 +2,22 @@
 import React, { useState } from 'react';
 import PassengerRow from './PassengerRow';
 import FareSummary from './FareSummary';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import axios from 'axios';
+import config from '../../config';
 
 const PassengerDetails = () => {
+
+  const navigate = useNavigate();
   const [passengers, setPassengers] = useState([{ id: 1, name: '', gender: '', age: '' }]);
   const maxPassengers = 4;
   const location = useLocation();
   const { userId } = useAuth();
   const { data, selectedClass } = location.state || {};
-  const baseFare = data.baseFare;
+  const baseFare = 200;
 
   const handlePassengerDetails = (index, details) => {
     const updatedPassengers = [...passengers];
@@ -30,26 +34,75 @@ const PassengerDetails = () => {
     }
   };
 
-  const bookingDetails = {
-    coachType: selectedClass.type,
-    userId: userId,
-    trainNumber: data.trainNumber,
-    tickets: passengers.map((passenger) => ({
-      passengerName: passenger.name,
-      gender: passenger.gender,
-      passengerAge: passenger.age,
-    })),
-    fromStation: data.source,
-    toStation: data.destination,
+  const [bookingDetails, setBookingDetails] = useState({
+    coachType: "AC",
+    userId: 2,
+    trainNumber: 1001,
+    tickets: [{
+      passenger: {
+        passengerName: "Meena",
+        gender: "FEMALE",
+        passengerAge: 27
+      }
+    }],
+    fromStation: "Delhi",
+    toStation: "Mumbai",
     bookingDateTime: new Date(),
-    dateOfJourney: data.dateOfJourney,
-    totalAmount: baseFare * passengers.length
-  };
+    dateOfJourney: "2024-11-11",
+    totalAmount: 405
+  });
+
+  // const bookingDetails = {
+  //   coachType: selectedClass.type,
+  //   userId: userId,
+  //   trainNumber: data.trainNumber,
+    // tickets: passengers.map((passenger) => ({
+    //   passengerName: passenger.name,
+    //   gender: passenger.gender,
+    //   passengerAge: passenger.age,
+    // })),
+  //   fromStation: data.source,
+  //   toStation: data.destination,
+  //   bookingDateTime: new Date(),
+  //   dateOfJourney: data.dateOfJourney,
+  //   totalAmount: baseFare * passengers.length
+  // };
 
   console.log(bookingDetails);
 
   const handleBookTicket = () => {
+
+    // const updatedBookingDetails = {
+    //   ...bookingDetails,
+    //   tickets: passengers.map((passenger) => ({
+    //     passengerName: passenger.name,
+    //     gender: passenger.gender,
+    //     passengerAge: passenger.age,
+    //   })),
+    //   totalAmount: baseFare * passengers.length,
+    // };
+    // console.log(bookingDetails);
+    // setBookingDetails((currentDetails) => ({
+    //   ...currentDetails, // Spread existing bookingDetails to keep other fields
+    //   tickets: passengers.map((passenger) => ({
+    //     passengerName: passenger.name,
+    //     gender: passenger.gender,
+    //     passengerAge: passenger.age,
+    //   })),
+    //   totalAmount: baseFare * passengers.length,
+    // }));
+    console.log(bookingDetails);
     // Logic for booking ticket
+    axios.post(`${config.server}/bookings/addnewbooking`, bookingDetails )
+      .then((response) => {
+        // toast(response.data);
+        navigate("/booksuccess");
+      }).catch((error) => {
+        console.log(error)
+        toast.error("Something went Wrong");
+        navigate("/passengerdetails");
+      })
+
   };
 
   return (
