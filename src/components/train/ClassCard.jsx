@@ -10,14 +10,16 @@ const ClassCard = ({ classType, availability }) => {
   const status = isAvailable ? 'AVL' : 'WL'; 
 
   return (
-    <div
-      className={`container rounded  my-3 ${
-        isAvailable ? 'alert alert-success' : 'alert alert-danger'
-      }`}
-      style={{ width: '18%' }}
-    >
-      <div className="class-type">{classType}</div>
-      <div className="availability">{status} {availabilityDisplay}</div>
+    <div className=""> 
+      <div
+        className={`container rounded my-3 ${
+          isAvailable ? 'alert alert-success' : 'alert alert-danger'
+        }`}
+        style={{ width: '100%' }} 
+      >
+        <div className="class-type">{classType}</div>
+        <div className="availability">{status} {availabilityDisplay}</div>
+      </div>
     </div>
   );
 };
