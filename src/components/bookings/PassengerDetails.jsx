@@ -2,12 +2,16 @@
 import React, { useState } from 'react';
 import PassengerRow from './PassengerRow';
 import FareSummary from './FareSummary';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import axios from 'axios';
+import config from '../../config';
 
 const PassengerDetails = () => {
+
+  const navigate = useNavigate();
   const [passengers, setPassengers] = useState([{ id: 1, name: '', gender: '', age: '' }]);
   const maxPassengers = 4;
   const location = useLocation();
@@ -35,9 +39,11 @@ const PassengerDetails = () => {
     userId: userId,
     trainNumber: data.trainNumber,
     tickets: passengers.map((passenger) => ({
-      passengerName: passenger.name,
-      gender: passenger.gender,
-      passengerAge: passenger.age,
+      passenger : {
+        passengerName: passenger.name,
+        gender: passenger.gender,
+        passengerAge: passenger.age
+      }
     })),
     fromStation: data.source,
     toStation: data.destination,
@@ -50,6 +56,16 @@ const PassengerDetails = () => {
 
   const handleBookTicket = () => {
     // Logic for booking ticket
+    axios.post(`${config.server}/bookings/addnewbooking`,bookingDetails)
+    .then((response) => {
+      toast.success("Tickets booked successFully !!!");
+      console.log(response.data);
+      navigate("/booksuccess");
+    }).catch((error) => {
+      toast.error("Something went wrong !!!")
+      console.log(error.data);
+      navigate("/trainlist");
+    })
   };
 
   return (

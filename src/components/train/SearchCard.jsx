@@ -13,11 +13,11 @@ const SearchCard = ({ data, duration }) => {
     }
 
     if (data.sleeperSeats !== null && !isNaN(data.sleeperSeats)) {
-      classTypes.push({ type: "SL", availability: data.sleeperSeats });
+      classTypes.push({ type: "SLEEPER", availability: data.sleeperSeats });
     }
 
     if (data.generalSeats !== null && !isNaN(data.generalSeats)) {
-      classTypes.push({ type: "GEN", availability: data.generalSeats });
+      classTypes.push({ type: "GENERAL", availability: data.generalSeats });
     }
 
     return classTypes;
