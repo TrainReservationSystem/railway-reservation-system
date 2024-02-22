@@ -14,8 +14,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useNavigate } from "react-router-dom";
 import config from "../../config"
+import { useNavigate } from "react-router-dom";
 
 const BookingCard = ({ booking, setBookings }) => {
+  const navigate = useNavigate();
   const getTicketStatusColor = (status) => {
     switch (status) {
       case "CONFIRM":
@@ -48,8 +50,8 @@ const BookingCard = ({ booking, setBookings }) => {
                 status: "CANCEL",
               };
             }
-            window.location.href="/mybookings"
-            // navigate("/mybookings");
+            // window.location.href="/mybookings"
+            navigate("/mybookings");
             return ticket;
           }),
         }))

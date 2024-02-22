@@ -4,8 +4,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
+import { useAuth } from "../../contexts/AuthContext";
 
 const BookingSuccess = () => {
+  const {userId} = useAuth();
   const [feedback, setFeedback] = useState("");
   const [submittingFeedback, setSubmittingFeedback] = useState(false);
 
@@ -15,7 +17,7 @@ const BookingSuccess = () => {
     try {
       await axios.post(
         `${config.server}/feedback/feedbackByUser`,
-        { feedback, userId: 2 } // Hardcoded user ID 2
+        { feedback, userId } 
       );
       toast.success("Feedback submitted successfully!");
       setFeedback("");
