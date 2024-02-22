@@ -13,11 +13,11 @@ const SearchCard = ({ data, duration }) => {
     }
 
     if (data.sleeperSeats !== null && !isNaN(data.sleeperSeats)) {
-      classTypes.push({ type: "SL", availability: data.sleeperSeats });
+      classTypes.push({ type: "SLEEPER", availability: data.sleeperSeats });
     }
 
     if (data.generalSeats !== null && !isNaN(data.generalSeats)) {
-      classTypes.push({ type: "GEN", availability: data.generalSeats });
+      classTypes.push({ type: "GENERAL", availability: data.generalSeats });
     }
 
     return classTypes;
@@ -57,13 +57,13 @@ const SearchCard = ({ data, duration }) => {
             {data.departureTime} | {data.destination}
           </div>
         </div>
+        <div className="row">
         {/* <Link to={{
           pathname: "/passengerdetails",
           state: { data } // Passing data through state
         }}> */}
-          <span className="d-inline">
             {classTypes.map((classType, index) => (
-              <div onClick={() => handleClassSelect(classType)} key={index}>
+              <div className="col" onClick={() => handleClassSelect(classType)} key={index}>
               <ClassCard
                 key={index}
                 classType={classType.type}
@@ -71,7 +71,7 @@ const SearchCard = ({ data, duration }) => {
               />
               </div>
             ))}
-          </span>
+          </div>
         {/* </Link> */}
       </div>
     </div>
